@@ -58,18 +58,24 @@ class informes extends MY_Controller {
                                             'ciclos'        => $ciclos,
                                             'filtro_ciclos'   => $data['filtro_ciclos']
                                         );
+
+
         $data['receptividad']           = $this->informe->getInformeReceptividad($filtros); 
+
         $data['positivas']              = $this->informe->getInfestadas($filtros);
+
         $data['viviendas_positivas']    = $this->vivienda->getPositivasAgrupadasyPorSede($filtros);
-        $data['ambos']                  = $this->informe->getInfestaAmbos($data['lugares'],$filtros);
         
-        $total_viviendas_relevadas      = count($this->vivienda->getViviendasRelevadasBySede($id_sede,$filtros));
+        $data['ambos']                  = $this->informe->getInfestaAmbos($data['lugares'],$filtros);
+        //dump($data['receptividad']);die;
+        $total_viviendas_relevadas      = $this->vivienda->getViviendasRelevadasBySede($id_sede,$filtros);
+        //dump($total_viviendas_relevadas);die;
         $data['total_viviendas_relevadas']=$total_viviendas_relevadas;
         $total_viviendas_sede           = $this->vivienda->getViviendasBySede($id_sede);
         $data['form'] = '';
         $data['ckey'] = '';
-
-        $data['cobertura']              = round((($data['receptividad']['receptiva']/$total_viviendas_relevadas )*100), 2);
+       // dump($data['receptividad']['receptiva']);die;
+        $data['cobertura']              = round((((int)$data['receptividad']['receptiva']/ $total_viviendas_relevadas )*100), 2);
         $data['porLugar_intra']         = $this->informe->getByLugar('intradomicilio',$data['ambos'],$data['lugares_intra'],$filtros);
         $data['porLugar_peri']          = $this->informe->getByLugar('peridomicilio',$data['ambos'],$data['lugares_peri'],$filtros);
 
@@ -98,6 +104,21 @@ class informes extends MY_Controller {
         $data['viviendas']              = $this->vivienda->getViviendasBySede($filtros);
         $this->load->view('admin/admin_info', $data);
     }
+
+
+    public function info_int($id_sede=0){
+        $data['ciclos']                 = $this->ciclo->getCiclosBySede($id_sede);
+        $fechas                         = $this->informe->getFechaPrimeryUltimoDato('viviendas_inspeccion','fecha_inspeccion');
+        $data['hasta']                  = $fechas['hasta'];
+        $data['desde']                  = $fechas['desde'];
+        $data['menusel']                = "informes";
+        $data['listado']                = 'admin/informes/intermedio';
+        $data['sede']                   = $this->sede->getSedeId($id_sede);
+        $data['barrios']                = $this->sede->getBarriosBySede($id_sede);
+        //dump($data);
+        $this->load->view('admin/admin_info_intermedio', $data);
+    }
+
 
 
     /**

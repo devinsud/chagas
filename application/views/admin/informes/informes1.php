@@ -4,23 +4,8 @@
 
 <hr>
 
-<h2>Criterios<br></h2>
-<strong>Fecha desde:</strong> <?php echo ($desde != '')?$desde:''; ?> &nbsp;|&nbsp; 
-<strong>Fecha hasta:</strong> <?php echo ($hasta != '')?$hasta:''; ?> &nbsp;|&nbsp; 
-<strong>Barrio:</strong> <?php echo ($barrio != '')?$barrio:''; ?> &nbsp;|&nbsp; 
-<strong>Manzana:</strong> <?php echo ($manzana != '')?$manzana:''; ?> &nbsp;|&nbsp; 
-<strong>Zona:</strong> <?php echo ($zona != '')?$zona:''; ?> &nbsp;|&nbsp; 
-<strong>Filtro x ciclos: </strong>
 
-<?php 
-if(is_array($filtro_ciclos)){
-	foreach($filtro_ciclos as $fc){
 
-		$ciclo = $this->ciclo->getcicloId($fc);
-		echo $ciclo[0]->ciclo.' '.$ciclo[0]->tipo.'  &nbsp;|&nbsp; ';
-	}
-}
-?>
 
 <?php
 
@@ -85,10 +70,10 @@ if (count($viviendas) > 0) {
 				<strong>Viviendas Desarmadas =  <span class="ninfo"><?php echo $receptividad['desarmada'].$sobre_relevadas_desarmadas;?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-				<strong>Viviendas Relevadas=  <span class="ninfo"></span><?php echo $receptividad['totales'];?></strong>
+				<strong>Viviendas Relevadas=  <span class="ninfo"><?php echo $total_viviendas_relevadas;?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-				<strong>Viviendas Totales =  <span class="ninfo"><?php echo $total_viviendas_relevadas;?></span></strong>
+				<strong>Viviendas Totales =  <span class="ninfo"><?php echo $receptividad['totales'];?></span></strong>
 			</div>
 
 		</div>
@@ -99,38 +84,45 @@ if (count($viviendas) > 0) {
 					<strong>Total de viviendas infestadas =</strong> <span class="ninfo"><?php echo $positivas['totales'];?></span>
 				</div>
 				<div  class="barra_indice" style="background-color:#fecd67; padding:5px;">
-					<strong>Total infestaci&oacute;n peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_peri1;
+					<strong>Total infestaci&oacute;
+		n peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_peri1;
 		?></span><strong>
 
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total infestaci&oacute;n intradomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_intra1;
+					<strong>Total infestaci&oacute;
+		n intradomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_intra1;
 		?></span>
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total infestaci&oacute;n intra y peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_ambos;
+					<strong>Total infestaci&oacute;
+		n intra y peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_ambos;
 		?></span>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n total=</strong> <span class="ninfo"><?php echo $idi;
+					<strong>Indice de infestaci&oacute;
+		n total=</strong> <span class="ninfo"><?php echo $idi;
 		?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intradomicilio =</strong> <span class="ninfo"><?php echo $idi_intra;
+					<strong>Indice de infestaci&oacute;
+		n intradomicilio =</strong> <span class="ninfo"><?php echo $idi_intra;
 		?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n peridomicilio =</strong> <span class="ninfo"><?php echo $idi_peri;
+					<strong>Indice de infestaci&oacute;
+		n peridomicilio =</strong> <span class="ninfo"><?php echo $idi_peri;
 		?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intra y peridomicilio =</strong> <span class="ninfo"><?php echo $idi_ambos;
+					<strong>Indice de infestaci&oacute;
+		n intra y peridomicilio =</strong> <span class="ninfo"><?php echo $idi_ambos;
 		?></span><strong>
 				</div>
 

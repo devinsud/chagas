@@ -896,34 +896,31 @@ class Vivienda extends CI_Model {
 			$this->db->where('viviendas_inspeccion.fecha_inspeccion', $filtros['desde']);
 		}
 
-		if ($filtros['zona'] != '') {
+		/*if ($filtros['zona'] != '') {
 
 			foreach ($filtros['ciclos'] as $cic) {
 				$this->db->or_where('ciclo', $cic->id);
 			}
 
-		}
-		if (isset($filtros['filtro_ciclos']) && is_array($filtros['filtro_ciclos'])) {
-			foreach ($filtros['filtro_ciclos'] as $ciclo) {
-				if ($ciclo != '') {
-					$this->db->or_where('viviendas_inspeccion.ciclo', $ciclo);
-				}
-			}
-		} else if (isset($filtros['filtro_ciclos']) && !is_array($filtros['filtro_ciclos'])) {
-			if ($filtros['filtro_ciclos'] != '') {
-				$this->db->where('viviendas_inspeccion.ciclo', $filtros['filtro_ciclos']);
-			}
-		}
+		}*/
+		 if($filtros['zona'] ==''){
+                if(isset($filtros['filtro_ciclos'])&& is_array($filtros['filtro_ciclos'])){
+                    $this->db->where_in('ciclo',$filtros['filtro_ciclos']);   
+            
+                }
+            }
 		/***FILTROS****/
 
 		$id = (int) $id;
-		$this->db->where('id_sede', $id);
-		$this->db->join('viviendas_inspeccion', 'viviendas_inspeccion.id_vivienda=viviendas.id_vivienda', 'right');
+		$this->db->select('count(distinct viviendas.id_vivienda) as cant');
+		$this->db->join('viviendas_inspeccion', 'viviendas_inspeccion.id_vivienda=viviendas.id_vivienda','right');
 
 		$res = $this->db->get('viviendas')->result();
-
-		return $res;
+		$lq = $this->db->last_query();
+		
+		return (int)$res[0]->cant;
 	}
+
 
 	/**
 	 * [getDatosLista set de datos para listas de trabajo]

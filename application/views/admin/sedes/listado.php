@@ -41,7 +41,7 @@ if ($this->session->flashdata('message')) {
 
                         <td class="herramientas_fuentes">
                         <a href="<?php echo base_url(); ?>admin/sedes/edita/<?php echo $u->id; ?>" ><img src="<?php echo base_url(); ?>assets/img/edit-icon.gif" width="16" height="16" alt="" /> Editar | 
-                        <a href="<?php echo base_url(); ?>admin/informes/index/<?php echo $u->id; ?>" target="_blank"><img src="<?php echo base_url(); ?>assets/img/inf.jpg" width="16" height="16" alt="" /> Informes | 
+                        <a href="<?php echo base_url(); ?>admin/informes/info_int/<?php echo $u->id; ?>" target="_blank"><img src="<?php echo base_url(); ?>assets/img/inf.jpg" width="16" height="16" alt="" /> Informes | 
 
                         </td>
                     </tr>
