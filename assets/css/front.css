@@ -1,0 +1,185 @@
+/* 
+    Document   : front
+    Created on : Aug 11, 2011, 9:52:35 PM
+    Author     : fabi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+body{
+    font-family: Arial;
+}
+img { border: 0; }
+.header{
+    position:relative;
+    margin:20px auto;
+    width:700px;
+    height:100px;
+    
+}
+#map{
+    float:left;
+    width: 700px;
+    height: 700px; 
+}
+#content {
+    position: relative;
+    float:left;
+    width:300px;
+}
+#container{
+    position:relative;
+    margin:30px auto;
+    width:1000px;
+    height:700px;
+    border-top:5px solid #ccc;
+    border-bottom:5px solid #ccc;
+    padding:30px;
+}
+#content li{
+    list-style-type: none;
+    font-size:12px;
+
+    padding:  0 10px 0 0;
+
+}
+ul,li{
+    list-style-type: none;
+    font-size:12px;
+    float:left;
+    padding:  0 10px 0 0;
+
+}
+a{
+    color:#333;
+    text-decoration: none;
+    border:1px solid #ccc;
+}
+.logout{
+    position:relative;
+    width:1000px;
+    height:10px;
+    margin:0 auto;
+    top:25px;
+
+
+}
+.logout a{
+    position: relative;
+    float: right;
+    font-size: 12px;
+}
+.campas{
+    width: 1000px;
+    position: relative;
+    margin:0 auto;
+}
+h2{
+    font-family: arial;
+    font-size: 14px;
+    margin-left:30px;
+}
+h1{
+    font-family: arial;
+    font-size: 14px;
+
+}
+.mark{
+    list-style-type: none;
+    font-size:10px;
+    clear:both;
+    padding:  0 10px 0 0;
+    margin-left: 10px;
+}
+.lista_soportes{
+    border:1px solid #333;
+    margin-left:30px;
+    display:block;
+    position:relative; 
+    height:230px;
+    width:270px; 
+    font-size:11px; 
+    overflow-y: scroll;
+}
+#directions_panel{
+    border:1px solid #333;
+    margin-left:30px;
+    display:block;
+    position:relative; 
+    height:210px;
+    width:270px; 
+    font-size:11px; 
+    overflow-y: scroll;
+}
+
+#referencias{
+    border:1px solid #333;
+    margin-left:30px;
+    display:block;
+    position:relative; 
+    height:150px;
+    width:270px; 
+    font-size:11px; 
+    overflow-y: scroll;
+}
+
+
+
+#container h3{
+    font-size: 14px;
+    color:#1c94c4;
+    font-weight:bold;
+}
+#container h2{
+    font-size: 12px;
+    color:#000;
+     margin-left:0px;
+}
+#container p{
+    font-size: 11px;
+    width:150px;
+    
+}
+#container img{
+    
+    margin:1px;
+}
+.adsp-legal{
+    display:none;
+}
+.caja_marker{
+    width:330px; 
+    height:150px;
+    overflow-x: hidden;
+    
+}
+
+.caja_marker_foto{
+    width:150px; height:120px; position:relative; float:left;background-repeat: no-repeat;
+}
+.caja_marker_texto{
+     width:150px; height:100px; position:relative; float:left;margin-left: 2px; 
+}
+
+.caja_marker_texto p{
+     width:150px; height:100px; position:relative; float:left;
+}
+#referencias img{
+    margin:0;
+}
+
+#referencias li{
+    margin-left:10px;
+    margin-top:5px; 
+}
+.img_ref{
+    width:40px;
+}

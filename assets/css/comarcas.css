@@ -1,0 +1,27 @@
+/* 
+    Document   : comarcas
+    Created on : Dec 11, 2011, 2:34:52 PM
+    Author     : macbook
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+
+.transparent {
+        
+        width: 100%; 
+        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=50);
+        -moz-opacity:0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5;
+}

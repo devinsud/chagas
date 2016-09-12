@@ -1,0 +1,139 @@
+
+<div class="table" style="width:800px;margin:0 auto;">
+    <?php 
+    $attributes = array('id' => 'id-form', 'class'=>'form-horizontal');
+    echo form_open_multipart(base_url().'admin/viviendas/edita',$attributes); ?>
+    <fieldset>  
+            <legend>Incorporaci&oacute;n de Viviendas</legend>  
+            <?php $datos = $this->vivienda->explode_id($item->id_vivienda); ?>
+            <input name="item[id]" value="<?php echo $item->id; ?>" type="hidden" />
+            <div class="row">
+                <div class="col-xs-3">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">N° de Barrio/Paraje:</label>  
+                        <div class="controls">  
+                         <input type="text" name="item[id_barrio]" id="barrio"  class="form-control" onchange="traeNombreBarrio()" value="<?php echo $datos['barrio']; ?>"  />
+                         <input type="hidden" name="item[id_sede]" id="id_sede"  class="form-control" value="<?php echo $sede; ?>" />
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-4">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">Nombre Barrio/Paraje:</label>  
+                        <div class="controls">  
+                         <input type="text" name="item[nombre]"   class="form-control"  value="<?php echo $datos['nombre_barrio']; ?>"   id="nombre_barrio" readonly />
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-5">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">N° de Manzana:</label>  
+                        <div class="controls">  
+                         
+                         <input type="text"  class="form-control" id="manzana" name="item[manzana]"  value="<?php echo $datos['manzana']; ?>" />
+
+                        </div>  
+                      </div> 
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-3">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">N° de Vivienda:</label>  
+                        <div class="controls">  
+                         <input type="text"  class="form-control" id="vivienda" name="item[vivienda]"  value="<?php echo $datos['vivienda']; ?>"/>
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-4">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">&nbsp;</label>
+                        <div class="controls">  
+                         <button type="button" id="calc_id" >Calcular id de la vivienda</button>
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-5">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">ID Vivienda:</label>  
+                        <div class="controls">  
+                            <input type="text" id="idvivienda" name="item[idvivienda]"  class="form-control" value="<?php echo $item->id_vivienda; ?>"  readonly />
+                        </div>  
+                      </div> 
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-3">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">Tipo de vivienda:</label>  
+                        <div class="controls">  
+                         
+                         <select name="item[tipo]">
+                            <?php if($item->tipo=='rural'){ ?>
+                            <option value="rural" selected>Rural</option>
+                            <option value="urbano">Urbano</option>
+                            <?php }else{ ?>
+                                <option value="rural">Rural</option>
+                                <option value="urbano" selected>Urbano</option>
+                            <?php } ?>
+                        </select>
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-4">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">Latitud:</label>
+                        <div class="controls">  
+                        <input type="text"  class="form-control" id="latitud" name="item[latitud]" value="<?php echo $item->latitud; ?>" />
+                         
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-5">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">Longitud:</label>  
+                        <div class="controls">  
+                            
+                            <input type="text" class="form-control" id="longitud" name="item[longitud]" value="<?php echo $item->longitud; ?>" />
+
+                        </div>  
+                      </div> 
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                
+                         
+                        <input type="hidden" id="habitantes" name="item[habitantes]"  value="0" />
+                      
+                <div class="col-xs-4">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">&nbsp;</label>
+                        <div class="controls">  
+                        <input type="hidden" name="submit" value="Guardar">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                         
+                        </div>  
+                      </div> 
+                </div>
+                <div class="col-xs-5">
+                     <div class="control-group">  
+                        <label class="control-label" for="input01">&nbsp;</label>
+                        <div class="controls">  
+                            
+                            <button class="btn">Cancelar</button>
+
+                        </div>  
+                      </div> 
+                </div>
+            </div>
+    </fieldset>
+    <?php echo form_close(); ?>
+</div>
+
+
+
+<!-- --------------------------------------------- -->
+

@@ -1,0 +1,278 @@
+<style>
+	.titulo_form{
+		background-color: #003300;
+		height:25px;
+		text-align: center;
+		padding:15px;
+		font-weight: bold;
+		color:#fff;
+		font-size: 20px;
+		
+	}
+	.pieform{
+		background-color: #758c48;
+		height:25px;
+		color: #fff;
+		padding:10px;
+	}
+	.campos_numericos{
+		width:50px;
+		text-align: center;
+		margin: 5px;
+	}
+	.row1{
+		height:50px;
+
+	}
+	.trborde td{
+		border-bottom: 1pt solid #030;
+		padding:10px;
+	}
+	.tabla_form{
+		background-color: #ccc;
+		font-family: "times, serif";
+		font-size: 1.1em;
+		font-weight: bold;
+		color: #003300;
+	}
+	.tdpanel{
+		padding:10px;
+	}
+	.eti{
+		width:200px;
+	}
+	#calc_id{
+		margin-top: 12px;
+	}
+</style>
+
+	<table class="tabla_form">
+		<tr class="row1"><td class=" titulo_form">Carga de Datos</td></tr>
+		<tr class="row1 trborde" >
+			<td >
+				
+ 
+				<div class="field">  
+					<span class="eti">N&deg; de Ciclo/Muestreo: </span>
+					<input type="text" id="ciclo" name="ciclo"  />
+				</div>
+
+				<div class="field">  
+					Fecha:
+					<input type="text" name="fecha" id="fecha" />
+				</div>
+
+
+			</td>
+			
+		</tr>
+		<tr class="row1">
+			<td> 
+			
+			<div class="field"><div class="eti">N&deg; de Barrio/Sector:</div> <input type="text" name="barrio" id="barrio" onchange="traeNombreBarrio()" /></div> &nbsp;&nbsp;&nbsp;
+			 &nbsp;&nbsp;&nbsp;
+			 <div class="field"> <div class="eti">N&deg; de Lote:</div> <input type="text" name="lote" id="lote" /></div> &nbsp;&nbsp;&nbsp;
+			 <div class="field"> <div class="eti">N&deg; de Manzana:</div> <input type="text" id="manzana" name="manzana" /></div>
+			 <div class="field"><div class="eti"> N&deg; de Vivienda:</div><input type="text" id="vivienda" name="vivienda" /></div>
+			 <div class="field">  <div class="eti"><button type="button" id="calc_id" >Calcular id vivienda</button></div></div>
+			</td>
+		</tr>
+		<tr class="trborde">
+			<td>
+				<div class="field"><div class="eti">ID Vivienda:</div> <input type="text" id="idvivienda" name="idvivienda" readonly /></div>
+			 	<div class="field"> <div class="eti">Nombre:</div> <input type="text" name="nombre" id="nombre_barrio" readonly /></div>
+			</td>
+		</tr>
+	
+	<tr class="row1 trborde" >
+		<td>
+			Vivienda Recuperada: 
+			<input type="text"  name="vivienda_recuperada" value="0" class="campos_numericos" />
+			
+		 &nbsp;&nbsp;&nbsp;
+			Vivienda Inspeccionada: 
+			<input type="text"  name="vivienda_inspeccionada" value="0" class="campos_numericos"   />
+			
+		 &nbsp;&nbsp;&nbsp;
+			Vivienda Cerrada: 
+			<input type="text"  name="vivienda_cerrada" value="0" class="campos_numericos"   />
+			
+		
+			&nbsp;&nbsp;&nbsp;
+			Vivienda Renuente: 
+			<input type="text"  name="vivienda_renuente" value="0" class="campos_numericos"   />
+			
+		 &nbsp;&nbsp;&nbsp;
+			Vivienda Positiva: 
+			<input type="text"  name="vivienda_positiva" value="0" class="campos_numericos"  />
+			&nbsp;&nbsp;&nbsp;
+			Habitantes: <input type="text" class="campos_numericos" name="habitantes" value="0" />
+		</td>
+
+	</tr>
+	
+	<tr>
+		<td>
+			<table>
+				<thead>
+					<th>&nbsp;</th>
+					<th>A</th>
+					<th>B</th>
+					<th>C</th>
+					<th>D</th>
+					<th>E</th>
+					<th>F</th>
+					<th>G</th>
+					<th>H</th>
+					
+					<th>Total</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Totales</td>
+						<td><input type="text" class="campos_numericos totales" name="totales_A" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_B" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_C" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_D" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_E" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_F" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_G" value="0"  /></td>
+						<td><input type="text" class="campos_numericos totales" name="totales_H" value="0"  /></td>
+						
+						<td><input type="text" class="campos_numericos" id="totales_total"  name="totales_total" value="0"   /></td>
+					</tr>
+					<tr>
+						<td>Con Agua</td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_A" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_B" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_C" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_D" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_E" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_F" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_G" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conagua" name="conagua_H" value="0"  /></td>
+						
+						<td><input type="text" class="campos_numericos" id="conagua_total" name="conagua_total" value="0"  /></td>
+					</tr>
+					<tr>
+						<td>Con Larvas/Pupas</td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_A" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_B" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_C" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_D" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_E" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_F" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_G" value="0"  /></td>
+						<td><input type="text" class="campos_numericos conlarvas"  name="conlarvas_H" value="0"  /></td>
+						
+						<td><input type="text" class="campos_numericos"  id="conlarvas_total"  name="conlarvas_total" value="0"  /></td>
+					</tr>
+					<tr>
+						<td>Positivos</td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_A" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_B" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_C" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_D" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_E" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_F" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_G" value="0"  /></td>
+						<td><input type="text" class="campos_numericos positivos"  name="positivos_H" value="0"  /></td>
+						
+						<td><input type="text" class="campos_numericos" id="positivos_total" name="positivos_total" value="0"  /></td>
+					</tr>
+				</tbody>
+			</table>
+	</td>
+	
+	</tr>
+		<tr>
+			<td class="pieform">
+				Control Qu&iacute;mico
+				<input type="text"  name="control_quimico" value="0"  class="campos_numericos"   />
+				
+				
+				 &nbsp;&nbsp;&nbsp;
+				Gramos Aplicados: <input type="text" class="campos_numericos"  name="gramos_aplicados" value="0"  />
+				 &nbsp;&nbsp;&nbsp;
+				
+			</td>
+		</tr>
+	
+
+	
+
+</table>
+<script>
+     $(function() {
+
+        var filas = {
+            totales   : 'totales_total',
+            conagua   : 'conagua_total',
+            conlarvas : 'conlarvas_total',
+            positivos : 'positivos_total'
+            }
+        $.each(filas,function(key,value){
+            $('.'+key).on('change',function(){
+                var total = 0;
+              $("."+key).each(function(){ 
+              	$(this).val(parseInt($(this).val()));
+                total += parseInt($(this).val()); 
+                }); 
+              $("#"+value).val(total);
+            })
+        })
+
+        $('#calc_id').on('click', function(){
+        	barrio = parseInt($("#barrio").val());
+        	manzana = parseInt($("#manzana").val());
+        	vivienda = parseInt($("#vivienda").val());
+        	if(barrio>0 && manzana >0 && vivienda >0){
+        		codigo = (barrio * 1000000)+(manzana*1000)+vivienda;
+        		$('#idvivienda').val(codigo);
+        	}else{
+        		alert( 'Faltan datos para calcular');
+        	}
+        })
+
+        $("#form1").validate({
+        submitHandler: function(form) {
+
+          
+           form.submit();
+
+        },
+        // Specify the validation rules
+        rules: {
+            ciclo:          "required",
+            barrio:         "required",
+            lote:           "required",
+            fecha:          "required",
+            manzana:        "required",
+            idvivienda :    "required",
+            vivienda:       "required"
+
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            ciclo: "Ciclo es un campo requerido",
+            barrio: "Barrio es un campo requerido",
+            lote: "Lote es un campo requerido",
+            fecha: "Fecha es un campo requerido",
+            manzana: "Manzana es un campo requerido",
+            idvivienda: "El id de la vivienda debe ser generado para continuar",
+            vivienda: "El nro de vivienda es requerido"
+        },
+
+        errorContainer: $('#errorContainer'),
+        errorLabelContainer: $('#errorContainer ul'),
+        wrapper: 'li'
+
+    
+        
+        
+    });
+        
+
+     });
+</script>
