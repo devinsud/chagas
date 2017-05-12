@@ -12,12 +12,17 @@
 <strong>Zona:</strong> <?php echo ($zona != '')?$zona:''; ?> &nbsp;|&nbsp; 
 <strong>Filtro x ciclos: </strong>
 
-<?php 
-if(is_array($filtro_ciclos)){
-	foreach($filtro_ciclos as $fc){
+<?php
+//var_dump($filtro_ciclos);
+
+if (is_array($filtro_ciclos)) {
+	if (($key = array_search('', $filtro_ciclos)) !== false) {
+		unset($filtro_ciclos[$key]);
+	}
+	foreach ($filtro_ciclos as $fc) {
 
 		$ciclo = $this->ciclo->getcicloId($fc);
-		echo $ciclo[0]->ciclo.' '.$ciclo[0]->tipo.'  &nbsp;|&nbsp; ';
+		echo $ciclo[0]->ciclo . ' ' . $ciclo[0]->tipo . '  &nbsp;|&nbsp; ';
 	}
 }
 ?>
@@ -28,15 +33,15 @@ if (count($viviendas) > 0) {
 	if (1 == 1) {
 		if ($total_viviendas_relevadas != 0) {
 			if ($total_viviendas_relevadas > 0) {
-				$sobre_relevadas_receptivas    = ' ('.round(($receptividad['receptiva']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
+				$sobre_relevadas_receptivas    = ' ('.round(($receptividad['receptiva']*100)/$receptividad['totales'], 2).'%) ';
 				$sobre_totales_receptivas      = ' ( '.round(($receptividad['receptiva']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_relevadas_cerradas      = ' ('.round(($receptividad['cerrada']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
+				$sobre_relevadas_cerradas      = ' ('.round(($receptividad['cerrada']*100)/$receptividad['totales'], 2).'%) ';
 				$sobre_totales_cerradas        = ' ('.round(($receptividad['cerrada']*100)/$receptividad['totales'], 2).'% sobre totales)';
 				$sobre_totales_desarmadas      = ' ('.round(($receptividad['desarmada']*100)/$receptividad['totales'], 2).'% sobre totales)';
 				$sobre_relevadas_desarmadas    = ' ('.round(($receptividad['desarmada']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
-				$sobre_relevadas_renuentes     = ' ('.round(($receptividad['renuente']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
+				$sobre_relevadas_renuentes     = ' ('.round(($receptividad['renuente']*100)/$receptividad['totales'], 2).'%) ';
 				$sobre_totales_renuentes       = ' ('.round(($receptividad['renuente']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_relevadas_deshabitadas  = ' ('.round(($receptividad['deshabitada']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
+				$sobre_relevadas_deshabitadas  = ' ('.round(($receptividad['deshabitada']*100)/$receptividad['totales'], 2).'%) ';
 				$sobre_totales_deshabitadas    = ' ('.round(($receptividad['deshabitada']*100)/$receptividad['totales'], 2).'% sobre totales)';
 				$sobre_totales_total_relevadas = ' ('.round(($total_viviendas_relevadas*100)/$receptividad['totales'], 2).'% sobre totales)';
 			} else {
@@ -82,13 +87,13 @@ if (count($viviendas) > 0) {
 				<strong>Viviendas Deshabitadas =  <span class="ninfo"><?php echo $receptividad['deshabitada'].$sobre_relevadas_deshabitadas;?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#3e8ecd; padding:5px;">
-				<strong>Viviendas Desarmadas =  <span class="ninfo"><?php echo $receptividad['desarmada'].$sobre_relevadas_desarmadas;?></span></strong>
+				<strong>Viviendas Desarmadas =  <span class="ninfo"><?php echo $receptividad['desarmada']; /*.$sobre_relevadas_desarmadas;*/?></span></strong>
 			</div>
+<!--			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
+				<strong>Viviendas Relevadas=  <span class="ninfo"></span><?php /*echo $receptividad['totales'];*/?></strong>
+			</div>-->
 			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-				<strong>Viviendas Relevadas=  <span class="ninfo"></span><?php echo $receptividad['totales'];?></strong>
-			</div>
-			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-				<strong>Viviendas Totales =  <span class="ninfo"><?php echo $total_viviendas_relevadas;?></span></strong>
+				<strong>Viviendas Totales =  <span class="ninfo"><?php echo $receptividad['totales'];?></span></strong>
 			</div>
 
 		</div>
@@ -99,43 +104,43 @@ if (count($viviendas) > 0) {
 					<strong>Total de viviendas infestadas =</strong> <span class="ninfo"><?php echo $positivas['totales'];?></span>
 				</div>
 				<div  class="barra_indice" style="background-color:#fecd67; padding:5px;">
-					<strong>Total infestaci&oacute;n peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_peri1;
+					<strong>Total de viviendas con infestación en peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_peri1;
 		?></span><strong>
 
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total infestaci&oacute;n intradomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_intra1;
+					<strong>Total de viviendas con infestación en intradomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_intra1;
 		?></span>
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total infestaci&oacute;n intra y peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_ambos;
+					<strong>Total de viviendas con infestación en intra y peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_ambos;
 		?></span>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n total=</strong> <span class="ninfo"><?php echo $idi;
+					<strong>Indice de infestaci&oacute;n =</strong> <span class="ninfo"><?php echo $idi . ' %';
 		?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intradomicilio =</strong> <span class="ninfo"><?php echo $idi_intra;
+					<strong>Indice de infestaci&oacute;n intradomiciliar =</strong> <span class="ninfo"><?php echo $idi_intra . ' %';
 		?></span><strong>
 				</div>
 
-				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n peridomicilio =</strong> <span class="ninfo"><?php echo $idi_peri;
-		?></span><strong>
+<!--				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
+					<strong>Indice de infestaci&oacute;n peridomicilio =</strong> <span class="ninfo"><?php /*echo $idi_peri;
+		*/?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intra y peridomicilio =</strong> <span class="ninfo"><?php echo $idi_ambos;
-		?></span><strong>
-				</div>
+					<strong>Indice de infestaci&oacute;n intra y peridomicilio =</strong> <span class="ninfo"><?php /*echo $idi_ambos;
+		*/?></span><strong>
+				</div>-->
 
 				<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-					<strong>Cobertura de acciones de campo = </strong> <span class="ninfo"><?php echo $cobertura;?></span>
+					<strong>Cobertura de acciones de campo = </strong> <span class="ninfo"><?php echo $receptividad['totales']<>0 ? round(($receptividad['receptiva'] / $receptividad['totales'])*100, 2):0	 /*$cobertura*/ . ' %';?></span>
 				</div>
 
 			</div>
@@ -143,33 +148,33 @@ if (count($viviendas) > 0) {
 			<div style="width:1250px;height:350px; padding:10px; ">
 				<div id="container3" style="width:1190px; float:left;  padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
 				<br>
-				<div id="container" style="width:410px; float:left;  padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
-				<div id="container1" style="width:370px; float:left; padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
-				<div id="container2" style="width:410px;  float:left;padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
+				<div id="container" style="width:/*410px*/610px; float:left;  padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
+				<div id="container1" style="width:/*370px*/580px; float:left; padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
+				<!--<div id="container2" style="width:410px;  float:left;padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>-->
 			</div>
 			<br>
 			<div style="width:1250px; padding:5px;  clear:both;">
-				<div style="width:410px; float:left; border-right:1px solid #000;padding:5px;">
+				<div style="width:/*410px*/610px; float:left; border-right:1px solid #000;padding:5px;">
 		<?php foreach ($porLugar_intra as $k => $v) {?>
 					    <span> <b> <?php echo $k;
 			?> :</b></span>  <?php echo $v;
 			?>,
 			<?php }?>
 		</div>
-				<div style="width:410px; float:left; border-right:1px solid #000;padding:5px;">
+				<div style="width:/*410px*/580px; float:left; border-right:1px solid #000;padding:5px;">
 		<?php foreach ($porLugar_peri as $k1 => $v1) {?>
 					    <span> <b> <?php echo $k1;
 			?> :</b></span>  <?php echo $v1;
 			?>,
 			<?php }?>
 		</div>
-				<div style="width:410px; float:left;padding:5px;">
-		<?php foreach ($ambos as $k2 => $v2) {?>
-					    <span> <b> <?php echo $k2;
-			?> :</b></span>  <?php echo count($v2);
-			?>,
-			<?php }?>
-		</div>
+<!--				<div style="width:410px; float:left;padding:5px;">
+		<?php /*foreach ($ambos as $k2 => $v2) {*/?>
+					    <span> <b> <?php /*echo $k2;
+			*/?> :</b></span>  <?php /*echo count($v2);
+			*/?>,
+			<?php /*}*/?>
+		</div>-->
 			</div>
 		<?php }?>
 	<br>

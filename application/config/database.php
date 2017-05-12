@@ -49,10 +49,10 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-//$db['default']['username'] = 'chagas';
-//$db['default']['password'] = 'ms2014';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'paraguay1535';
+$db['default']['username'] = 'chagas';
+$db['default']['password'] = 'ms2014';
+//$db['default']['username'] = 'root';
+//$db['default']['password'] = 'paraguay1535';
 $db['default']['database'] = 'chagas';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

@@ -30,7 +30,7 @@
           <div class="control-group">  
             <label class="control-label" for="input01">Password</label>  
             <div class="controls">  
-             <input type="text" name="item[password]" class="form-control"  value="<?php echo $item->pass; ?>"  />
+                <input type="password" name="item[password]" class="form-control"  value="<?php echo $item->pass; ?>"  />
             </div>  
           </div>  
            <div class="control-group">  

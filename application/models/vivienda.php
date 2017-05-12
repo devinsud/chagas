@@ -320,6 +320,14 @@ class Vivienda extends CI_Model {
 		$admin = $this->get_user($this->session->userdata('id'));
 		$f     = date('Y-m-d h:i:s');
 
+		//Agregado 22/11/2016 por Alejandro, cambio de versión MySQL a 5.7 no acepta strings vacíos donde espera int
+		if ($u['habitantes'] == ''){
+			$aa_habitantes = 0;
+		} else {
+			$aa_habitantes = $u['habitantes'];
+		}
+		//FIN Agregado 22/11/2016 por Alejandro, cambio de versión MySQL a 5.7 no acepta strings vacíos donde espera int
+
 		$data = array(
 			'id_vivienda' => $u['id_vivienda'],
 			'ciclo'       => $u['ciclo'],
@@ -333,7 +341,7 @@ class Vivienda extends CI_Model {
 			'fecha_carga_inspeccion'  => $f,
 			'activa'                  => 1,
 			'observaciones'           => $u['observaciones'],
-			'habitantes'              => $u['habitantes'],
+			'habitantes'              => $aa_habitantes, //Corregido por Alejandro - 22/11/2016
 			'id_orden'                => $u['orden'],
 
 		);
@@ -917,7 +925,9 @@ class Vivienda extends CI_Model {
 
 		$res = $this->db->get('viviendas')->result();
 		$lq = $this->db->last_query();
-		
+		//Pruebas
+		//var_dump($this->db->last_query());die;
+		//fin Pruebas
 		return (int)$res[0]->cant;
 	}
 

@@ -74,6 +74,8 @@ class Usuarios extends MY_Controller {
      * @return view
      */
     public function editar($id=0) {
+        
+        
         $submit = $this->input->post('submit');
         if ($submit != '') {
             $this->user->editar_usuario();

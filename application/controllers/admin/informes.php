@@ -34,8 +34,16 @@ class informes extends MY_Controller {
         $data['barrio']                 = (isset($_POST['barrios']))?$_POST['barrios']:'';
         $data['manzana']                = (isset($_POST['manzana']))?$_POST['manzana']:'';
         $data['zona']                   = (isset($_POST['zona']))?$_POST['zona']:'';
-        $data['filtro_ciclos']          = (isset($_POST['filtro_ciclos']))?$_POST['filtro_ciclos']:'';
-        
+        //Agregado por Alejandro 29/09/2016
+
+        if (isset($_POST['filtro_ciclos']) and is_array($_POST['filtro_ciclos'])) {
+            if (($key = array_search('', $_POST['filtro_ciclos'])) !== false) {
+                unset($_POST['filtro_ciclos'][$key]);
+            }
+        }
+
+        $data['filtro_ciclos']          = (!empty($_POST['filtro_ciclos']))?$_POST['filtro_ciclos']:'';
+
         $fechas                         = $this->informe->getFechaPrimeryUltimoDato('viviendas_inspeccion','fecha_inspeccion');
         $fechas['desde']                = (isset($_POST['desde']))?$_POST['desde']:'';
         $fechas['hasta']                = (isset($_POST['hasta']))?$_POST['hasta']:'';
@@ -75,15 +83,13 @@ class informes extends MY_Controller {
         $data['form'] = '';
         $data['ckey'] = '';
        // dump($data['receptividad']['receptiva']);die;
-        $data['cobertura']              = round((((int)$data['receptividad']['receptiva']/ $total_viviendas_relevadas )*100), 2);
+        $data['cobertura']              = $total_viviendas_relevadas <> 0 ? round((((int)$data['receptividad']['receptiva']/ $total_viviendas_relevadas )*100), 2) : 0;
         $data['porLugar_intra']         = $this->informe->getByLugar('intradomicilio',$data['ambos'],$data['lugares_intra'],$filtros);
         $data['porLugar_peri']          = $this->informe->getByLugar('peridomicilio',$data['ambos'],$data['lugares_peri'],$filtros);
-
 
         $data['getCantViviendasInfectadas_peri']          = $this->informe->getCantViviendasInfectadas('peridomicilio',$data['ambos'],$data['lugares_peri'],$filtros);
         $data['getCantViviendasInfectadas_intra']         = $this->informe->getCantViviendasInfectadas('intradomicilio',$data['ambos'],$data['lugares_intra'],$filtros);
         
-       
         $data['cant_infeccion_ambos']   = $this->informe->devuelveCant($data['ambos']); 
         $data['cant_infeccion_intra']   = $this->informe->devuelveCant($data['getCantViviendasInfectadas_intra']); 
        // $data['cant_infeccion_peri']    = $this->informe->devuelveCant($data['porLugar_peri']); 
@@ -91,10 +97,11 @@ class informes extends MY_Controller {
 
         $data['cant_infeccion_intra1']   = $this->informe->devuelveCant($data['getCantViviendasInfectadas_intra']); 
         
-        $data['cant_infeccion_peri1']    = $this->informe->devuelveCant($data['getCantViviendasInfectadas_peri']); 
+        $data['cant_infeccion_peri1']    = $this->informe->devuelveCant($data['getCantViviendasInfectadas_peri']);
+        
 
         $data['idi']                    = ($data['receptividad']['receptiva']>0)?round((($data['positivas']['totales']/$data['receptividad']['receptiva'])*100), 2):0;
-        $data['idi_intra']              = ($data['receptividad']['receptiva']>0)?round((($data['cant_infeccion_intra']/$data['receptividad']['receptiva'])*100), 2):0;
+        $data['idi_intra']              = ($data['receptividad']['receptiva']>0)?round(((($data['cant_infeccion_intra']+$data['cant_infeccion_ambos'])/$data['receptividad']['receptiva'])*100), 2):0;
         $data['idi_peri']               = ($data['receptividad']['receptiva']>0)?round((($data['cant_infeccion_peri']/$data['receptividad']['receptiva'])*100), 2):0;
         $data['idi_ambos']              = ($data['receptividad']['receptiva']>0)?round((($data['cant_infeccion_ambos']/$data['receptividad']['receptiva'])*100), 2):0;
         $data['menusel']                = "informes";

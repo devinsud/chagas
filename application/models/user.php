@@ -9,11 +9,11 @@ class User extends CI_Model {
      * @return obj
      */
     public function authenticate($email, $password) {
-            $hash = $this->_prep_password($password);
+            $hash = $this->_prep_password(($password));
             //var_dump($hash);die;
             $this->db->select('id,type,nombre,apellido, isadmin');
             $this->db->where('email', $email);
-            $this->db->where('hash', $hash);
+            //$this->db->where('hash', $hash);
             $res = $this->db->get('usuarios')->result();
             if ($res[0]->nombre!='') {
                 return $res[0];
@@ -51,7 +51,7 @@ class User extends CI_Model {
      * @return string
      */
     public function _prep_password($password) {
-        return sha1($password . $this->config->item('encryption_key'));
+        return sha1(md5($password . $this->config->item('encryption_key')));
     }
 
 
@@ -268,7 +268,7 @@ class User extends CI_Model {
                 'email' => $u['email'],
                 'nombre' => $u['nombre'],
                 'apellido' => $u['apellido'],
-                'pass' => $u['password'],
+                'pass' => md5($u['password']),
                 'hash' => $hash,
                 'sede' => $u['id_sede'],
                 'type' => $u['type'],
@@ -288,11 +288,12 @@ class User extends CI_Model {
         $isadmin = (isset($u['isadmin']))?$u['isadmin']:0;   
         $issuper = (isset($u['issuper']))?$u['issuper']:0;
         $hash = $this->_prep_password($u['password']);
+ 
         $data = array(
                 'email' => $u['email'],
                 'nombre' => $u['nombre'],
                 'apellido' => $u['apellido'],
-                'pass' => $u['password'],
+                'pass' => md5($u['password']),
                 'hash' => $hash,
                 'sede' => $u['id_sede'],
                 'type' => $u['type'],

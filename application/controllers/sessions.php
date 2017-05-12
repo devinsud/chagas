@@ -19,9 +19,8 @@ class Sessions extends CI_Controller {
         $this->load->model('user', '', true);
         $user = $this->input->post('user');
         
-        $user_data = $this->user->authenticate($user['email'], $user['password']);
-
-        if($user_data){    
+        $user_data = $this->user->authenticate($user['email'],  $user['password']);
+         if($user_data){    
             $this->session->set_userdata('id', $user_data->id);
             $this->session->set_userdata('type', $user_data->type);
             $this->session->set_userdata('nombre', $user_data->nombre);

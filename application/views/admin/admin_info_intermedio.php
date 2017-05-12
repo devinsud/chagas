@@ -139,7 +139,7 @@
     <div id="page-top">
 	   <div id="logo" style="margin-top:5px;">
 	       <a href=""><img src="<?php echo $base; ?>assets/img/logo2.png" width="113" height="85" alt="" /></a>
-	   </div>
+    </div>
        <div class="clear"></div>
     </div>
 </div>

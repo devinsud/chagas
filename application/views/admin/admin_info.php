@@ -62,7 +62,7 @@
                         plotShadow: false
                     },
                     title: {
-                        text: 'Indice de infestación por Viviendas'
+                        text: 'Vivienda'//'Indice de infestación por Viviendas'
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -104,7 +104,7 @@
                         plotShadow: false
                     },
                     title: {
-                        text: 'Indice de infestación por lugares (Intradomicilio)'
+                        text: 'Intradomicilio'//'Indice de infestación por lugares (Intradomicilio)'
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -145,7 +145,7 @@
                         plotShadow: false
                     },
                     title: {
-                        text: 'Indice de infestación por lugares (Peridomicilio)'
+                        text: 'Peridomicilio'//'Indice de infestación por lugares (Peridomicilio)'
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -166,8 +166,7 @@
                         type: 'pie',
                         name: 'Cantidad de infestaciones',
                         data: [
-                            <?php 
-
+                            <?php
                             foreach($porLugar_peri as $k1=>$v1){?>
                                 ['<?php echo $k1; ?>', <?php echo $v1; ?>],
                             <?php } ?>
