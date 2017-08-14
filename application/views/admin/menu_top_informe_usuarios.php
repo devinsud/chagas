@@ -23,3 +23,12 @@
     
 
 </ul>
+
+<script>
+function borrarItem(url){
+    var txt;
+    if (confirm("¿Querés borrar este item?") == true) {
+        window.location=url;
+    }  
+}
+</script>

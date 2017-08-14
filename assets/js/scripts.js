@@ -11,6 +11,10 @@ function agregaBarrioCompleto(id){
     })
 }
 
+if($('.selectize').length){
+    $('.selectize').selectize();
+
+}
 
 function chequeaTipo(){
     valor = $('#ciaSel').val();

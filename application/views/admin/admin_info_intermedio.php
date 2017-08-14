@@ -144,8 +144,26 @@
     </div>
 </div>
 
-<div class="clear">&nbsp;</div>
 
+<div class="clear">&nbsp;</div>
+<div class="nav-outer-repeat">
+    <div class="nav-outer">
+		<div id="nav-right">
+			<div class="nav-divider">&nbsp;</div>
+    		<a href="<?php echo base_url() ?>sessions/logout" id="logout"><img src="<?php echo $base; ?>assets/images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
+	    	<div class="clear">&nbsp;</div>
+		</div>
+		<div class="nav">
+           
+            
+            <?php 
+
+            
+            $this->load->view($menu_top); ?>
+        </div>
+    <div class="clear"></div>
+</div>
+    </div>
 
 
 <div class="clear"></div>

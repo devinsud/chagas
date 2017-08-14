@@ -15,13 +15,13 @@ class Ciclos extends MY_Controller {
      * @return view
      */
     public function index() {
-        
+
         $data = array();
         $data['admin'] = $this->admin; // vive en My_controller
         $data['menusel'] = "ciclos";
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/ciclos/listado';
-        $args = array('tabla'=>'ciclos','campo_orden'=>'id_sede','dir_orden'=>'asc');
+        $args = array('tabla' => 'ciclos', 'campo_orden' => 'id_sede', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $this->load->view('admin/admin_n', $data);
     }
@@ -42,7 +42,7 @@ class Ciclos extends MY_Controller {
             $data['menusel'] = "ciclos";
             $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/ciclos/form';
-            $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['sedes'] = $this->varios->getItems($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -53,7 +53,7 @@ class Ciclos extends MY_Controller {
      * @param  integer $id
      * @return view
      */
-    public function edita($id=0) {
+    public function edita($id = 0) {
         $submit = $this->input->post('submit');
         if ($submit == "Guardar") {
             $u = $this->input->post('item');
@@ -66,9 +66,9 @@ class Ciclos extends MY_Controller {
             $data['menusel'] = "ciclos";
             $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/ciclos/form_edit';
-            $args=array('tabla'=>'ciclos','campo'=>'id','valor'=>$id);
+            $args = array('tabla' => 'ciclos', 'campo' => 'id', 'valor' => $id);
             $data['item'] = $this->varios->getItem($args);
-            $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['sedes'] = $this->varios->getItems($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -80,8 +80,8 @@ class Ciclos extends MY_Controller {
      * @return void
      */
     public function borra($id) {
-        $id = (int)$id;
-        $args=array('tabla'=>'ciclos','campo'=>'id','valor'=>$id);
+        $id = (int) $id;
+        $args = array('tabla' => 'ciclos', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'El ciclo ha sido eliminado');
         redirect(base_url() . 'admin/ciclos/index', 'location');
@@ -92,13 +92,13 @@ class Ciclos extends MY_Controller {
      * @param  integer $id_sede
      * @return [type]          [description]
      */
-    public function getCiclosBySede($id_sede){
-        $id_sede = (int)$id_sede;
+    public function getCiclosBySede($id_sede) {
+        $id_sede = (int) $id_sede;
         $ciclos = $this->ciclos->getCiclosBySede($id_sede);
         return $ciclos;
     }
-    
-    
 
-} //class end bracket
+}
+
+//class end bracket
 

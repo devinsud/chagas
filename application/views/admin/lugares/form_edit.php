@@ -15,7 +15,7 @@
           </div>  
           <div class="control-group">  
             <label class="control-label" for="input01">Tipo</label>  
-            <select id="tipo" name="item[tipo]">
+            <select id="tipo" class="form-control" name="item[tipo]">
 
                     <?php
                     if ($item->tipo =='intradomicilio'){ ?>

@@ -18,48 +18,47 @@ class Sessions extends CI_Controller {
     function authenticate() {
         $this->load->model('user', '', true);
         $user = $this->input->post('user');
-        
-        $user_data = $this->user->authenticate($user['email'],  $user['password']);
-         if($user_data){    
+
+        $user_data = $this->user->authenticate($user['email'], $user['password']);
+        if ($user_data) {
             $this->session->set_userdata('id', $user_data->id);
             $this->session->set_userdata('type', $user_data->type);
             $this->session->set_userdata('nombre', $user_data->nombre);
-            
+
             $this->session->set_userdata('loggedin', true);
-        
-            if($user_data->isadmin==1){
+
+            if ($user_data->isadmin == 1) {
                 redirect(base_url() . 'admin/sedes/index');
-            }else if($user_data->isadmin==0){
+            } else if ($user_data->isadmin == 0) {
                 redirect(base_url() . 'admin/viviendas/index');
                 //redirect(base_url() . 'formularios_front');
             }
-        }else{
-            redirect(base_url() . 'admin/login');    
+        } else {
+            redirect(base_url() . 'admin/login');
         }
     }
 
     function authenticate_externo() {
         $this->load->model('user', '', true);
-        
+
         $email = $this->input->post('usuario');
         $password = $this->input->post('contraseña');
 
         $user_data = $this->user->authenticate($email, $password);
 
-        if($user_data){    
+        if ($user_data) {
             return json_encode($user_data);
             //$this->session->set_userdata('id', $user_data->id);
             //$this->session->set_userdata('type', $user_data->type);
             //$this->session->set_userdata('nombre', $user_data->nombre);
-            
             //$this->session->set_userdata('loggedin', true);
-            
-           /* if($user_data->isadmin==1){
-                redirect(base_url() . 'admin/sedes/index');
-            }else if($user_data->isadmin==0){
-                redirect(base_url() . 'formularios_front');
-            }*/
-        }else{
+
+            /* if($user_data->isadmin==1){
+              redirect(base_url() . 'admin/sedes/index');
+              }else if($user_data->isadmin==0){
+              redirect(base_url() . 'formularios_front');
+              } */
+        } else {
             return FALSE;
             //redirect(base_url() . 'admin/login');    
         }
@@ -69,19 +68,19 @@ class Sessions extends CI_Controller {
         $this->load->model('user', '', true);
         $user = $this->input->post('user');
         $user_data = $this->user->authenticate($user['email'], $user['password']);
-       
+
         if ($user_data) {
             $this->session->set_userdata('id', $user_data->id);
             $this->session->set_userdata('type', $user_data->id);
             $this->session->set_userdata('loggedin', true);
-            if($user_data->isadmin==1){
+            if ($user_data->isadmin == 1) {
                 redirect(base_url() . 'admin/sedes/index');
-            }else if($user_data->isadmin==0){
+            } else if ($user_data->isadmin == 0) {
                 redirect(base_url() . 'formularios_front');
             }
         } else {
-             
-            redirect(base_url().'login_user');
+
+            redirect(base_url() . 'login_user');
         }
     }
 
@@ -151,8 +150,6 @@ class Sessions extends CI_Controller {
         $this->session->set_flashdata('message', 'La Campa&ntilde;a ha sido editada');
         redirect(base_url() . 'admin/admin/campaign', 'location');
     }
-
-    
 
     /* camino */
 
@@ -231,15 +228,15 @@ class Sessions extends CI_Controller {
             redirect(base_url() . 'admin/login', 'location');
         } else {
             $this->load->library('email');
-            
-                
+
+
             $this->email->initialize();
             $this->email->from('olvido_de_password@mediavest.com.ar', 'Mediavest');
             $this->email->to($user->email);
 
             $this->email->subject('Olvido su password - mediavest');
-            $this->email->message('El password de su cuenta Mediavest es: '.$user->password);
-                      
+            $this->email->message('El password de su cuenta Mediavest es: ' . $user->password);
+
 
             $this->email->send();
 
@@ -247,23 +244,21 @@ class Sessions extends CI_Controller {
             redirect(base_url() . 'admin/login', 'location');
         }
     }
+
     function registro_icono_campa() {
         $this->load->model('iconos');
         $this->iconos->registro_icono_campa();
         $id_campa = $this->input->post('id_campa');
         $this->session->set_flashdata('message', 'El icono se subi&oacute; satisfactoriamente ');
-        redirect(base_url() . 'admin/admin/iconos_by_campa/'.$id_campa, 'location');
+        redirect(base_url() . 'admin/admin/iconos_by_campa/' . $id_campa, 'location');
     }
-    
+
     function editar_icono_campa() {
         $this->load->model('iconos');
         $this->iconos->editar_icono_campa();
         $id_campa = $this->input->post('id_campa');
         $this->session->set_flashdata('message', 'El icono se actualiz&oacute; satisfactoriamente ');
-        redirect(base_url() . 'admin/admin/iconos_by_campa/'.$id_campa, 'location');
+        redirect(base_url() . 'admin/admin/iconos_by_campa/' . $id_campa, 'location');
     }
-    
-    
-    
 
 }

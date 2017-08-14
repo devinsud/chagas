@@ -1,6 +1,6 @@
 <?php
-class Ciclo extends CI_Model {
 
+class Ciclo extends CI_Model {
 
     /**
      * [registro alta]
@@ -15,7 +15,7 @@ class Ciclo extends CI_Model {
         );
         $this->db->insert('ciclos', $data);
     }
-    
+
     /**
      * [edicion modificacion]
      * @return void
@@ -36,9 +36,9 @@ class Ciclo extends CI_Model {
      * @param  integer $id_ciclo
      * @return obj
      */
-    public function getcicloId($id_ciclo){
-        $id = (int)$id_ciclo;
-        $this->db->where('id',$id);
+    public function getcicloId($id_ciclo) {
+        $id = (int) $id_ciclo;
+        $this->db->where('id', $id);
         $res = $this->db->get('ciclos')->result();
         return $res;
     }
@@ -49,26 +49,25 @@ class Ciclo extends CI_Model {
      * @param  integer $id_sede  [description]
      * @return obj
      */
-    public function getCicloById($id_ciclo=0,$id_sede=0){
-        $id = (int)$id_ciclo;
-        $id_sede = (int)$id_sede;
-        if($id!=0){
-            $this->db->where('id_sede',$id_sede);
-            $this->db->where('id',$id);
+    public function getCicloById($id_ciclo = 0, $id_sede = 0) {
+        $id = (int) $id_ciclo;
+        $id_sede = (int) $id_sede;
+        if ($id != 0) {
+            $this->db->where('id_sede', $id_sede);
+            $this->db->where('id', $id);
             $res = $this->db->get('ciclos')->result();
             return $res;
-        }else{
+        } else {
             return 'no existe';
         }
-        
     }
 
     /**
      * [getCiclos devuelve todos los ciclos]
      * @return obj
      */
-    public function getCiclos(){
-        $this->db->order_by('ciclo','asc');
+    public function getCiclos() {
+        $this->db->order_by('ciclo', 'asc');
         $res = $this->db->get('ciclos')->result();
         return $res;
     }
@@ -78,14 +77,12 @@ class Ciclo extends CI_Model {
      * @param  [type] $id_sede [description]
      * @return [type]          [description]
      */
-    public function getCiclosBySede($id_sede){
-        $id_sede = (int)$id_sede;
-        $this->db->where('id_sede',$id_sede);
-        $this->db->order_by('id','desc');
+    public function getCiclosBySede($id_sede) {
+        $id_sede = (int) $id_sede;
+        $this->db->where('id_sede', $id_sede);
+        $this->db->order_by('id', 'desc');
         $res = $this->db->get('ciclos')->result();
         return $res;
     }
 
-
-    
 }

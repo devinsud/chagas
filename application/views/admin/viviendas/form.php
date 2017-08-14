@@ -9,7 +9,7 @@
                      <div class="control-group">  
                         <label class="control-label" for="input01">N° de Barrio/Paraje:</label>  
                         <div class="controls">  
-                         <input type="text" name="item[id_barrio]" id="barrio"  class="form-control" onchange="traeNombreBarrio()" />
+                            <input type="text" name="item[id_barrio]" id="barrio" value="<?php echo $vivienda ?>"  class="form-control" onchange="traeNombreBarrio()" />
                          <input type="hidden" name="item[id_sede]" id="id_sede"  class="form-control" value="<?php echo $sede; ?>" />
                         </div>  
                       </div> 
@@ -125,4 +125,8 @@
     </fieldset>
     <?php echo form_close(); ?>
 </div>
+
+<script>
+    traeNombreBarrio();
+    </script>
 

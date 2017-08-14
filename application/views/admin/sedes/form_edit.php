@@ -35,7 +35,7 @@
            <div class="control-group">  
             <label class="control-label" for="input01">Tel&eacute;fono</label>  
             <div class="controls">  
-             <input type="text" name="item[telefono]"  value="<?php echo $item->telefono; ?>" />
+             <input type="text" name="item[telefono]" class="form-control"  value="<?php echo $item->telefono; ?>" />
             </div>  
           </div> 
            <div class="control-group">  
@@ -54,7 +54,7 @@
           <div class="form-actions">  
           <input type="hidden" name="submit" value="Guardar">
             <button type="submit" class="btn btn-primary">Guardar</button>  
-            <button class="btn">Cancelar</button>  
+            <a class="btn btn-danger" onclick="window.history.go(-1); return false;">Cancelar</a>  
           </div>
     </fieldset>
 

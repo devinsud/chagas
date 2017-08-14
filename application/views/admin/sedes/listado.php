@@ -1,7 +1,7 @@
 
 <div class="top-bar">
     <?php if($this->session->userdata('type')==1 || $this->session->userdata('type')==10 ){ ?>
-    <a href="<?php echo base_url(); ?>admin/sedes/crea" class="button nuevo">Nueva Sede</a>
+    <a href="<?php echo base_url(); ?>admin/sedes/crea" class="btn btn-success">Nueva Sede</a>
     <?php } ?>
     <h1 class="titulo">Administraci&oacute;n de sedes</h1>
 </div>
@@ -11,17 +11,17 @@ if ($this->session->flashdata('message')) {
 }
 ?>
 <div class="table1">
-   <table id='example1' class='display datatable' border='0' cellspacing='0' cellpadding='0' >
+   <table id='example1' class="table table-striped table-bordered"  border='0' cellspacing='0' cellpadding='0' >
         <thead>
             <tr>
                 <th>Localidad</th>
                 <th>Provincia</th>
-                <th>Direccion</th>
+                <th>Dirección</th>
                 <th>Cod. Pos.</th>
                 <th>Tel</th>
                 <th>Responsable</th>
                 <th>Email</th>
-                <th style="width:180px;">Herraminetas</th>
+                <th style="width:180px;">Herramientas</th>
             </tr>
         </thead>
         <tbody>
@@ -40,8 +40,8 @@ if ($this->session->flashdata('message')) {
                         <td class="url_fuente"> <?php echo $u->email; ?> </td>
 
                         <td class="herramientas_fuentes">
-                        <a href="<?php echo base_url(); ?>admin/sedes/edita/<?php echo $u->id; ?>" ><img src="<?php echo base_url(); ?>assets/img/edit-icon.gif" width="16" height="16" alt="" /> Editar | 
-                        <a href="<?php echo base_url(); ?>admin/informes/info_int/<?php echo $u->id; ?>" target="_blank"><img src="<?php echo base_url(); ?>assets/img/inf.jpg" width="16" height="16" alt="" /> Informes | 
+                            <a href="<?php echo base_url(); ?>admin/sedes/edita/<?php echo $u->id; ?>" class="btn btn-info btn-xs" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar </a>
+                            <a href="<?php echo base_url(); ?>admin/informes/info_int/<?php echo $u->id; ?>" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-bar-chart" aria-hidden="true"></i> Informes</a>
 
                         </td>
                     </tr>

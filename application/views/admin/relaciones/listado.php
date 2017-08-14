@@ -14,7 +14,7 @@
 </div>
 
 <div class="table1">
-   <table id='example1' class='display datatable' border='0' cellspacing='0' cellpadding='0' >
+   <table id='example1' class="table table-striped table-bordered table-hover" border='0' cellspacing='0' cellpadding='0' >
         <thead>
             <tr>
                 <th>id</th>
@@ -38,7 +38,7 @@
                         <td class="herramientas_fuentes">
                         <a href="<?php echo base_url(); ?>admin/relaciones/edita/<?php echo $u->id; ?>" ><img src="<?php echo base_url(); ?>assets/img/edit-icon.gif" width="16" height="16" alt="" /> Editar
                         <?php if($admin==1 ){ ?>
-                        <a href="<?php echo base_url(); ?>admin/relaciones/borra/<?php echo $u->id; ?>" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/hr.gif" width="16" height="16" alt="" /> </a> Borrar</td>
+                        <a href="javascript:borrarItem('<?php echo base_url(); ?>admin/relaciones/borra/<?php echo $u->id; ?>')" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/hr.gif" width="16" height="16" alt="" />  Borrar</a></td>
                         <?php } ?>
                     </tr>
             <?php }

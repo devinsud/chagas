@@ -33,7 +33,7 @@
            <div class="control-group">  
             <label class="control-label" for="input01">Sede</label>  
             <div class="controls">  
-             <select id="sede" name="item[id_sede]" >
+             <select id="sede" class="form-control"  name="item[id_sede]" >
                     <option value=""></option>
                     <option value="0">Todas</option>
 
@@ -49,7 +49,7 @@
            <div class="control-group">  
             <label class="control-label" for="input01">Tipo de Usuario</label>  
             <div class="controls">  
-             <select name='item[type]'>
+             <select name='item[type]' class="form-control" >
                     <option value="1">Usuario con capacidad de edicion</option>
                     <option value="0">Usuario sin capacidad de edicion</option>
                 </select>

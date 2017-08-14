@@ -22,9 +22,8 @@
           <div class="control-group">
           <label class="control-label" for="input01">Sede</label>  
             <div class="controls">
-              <select id="sede" name="item[id_sede]">
-                    <option value=""></option>
-                    <?php
+              <select id="sede" class="form-control" name="item[id_sede]">
+                     <?php
 
                     foreach ($sedes as $value) {
                         if($item->id_sede == $value->id ){

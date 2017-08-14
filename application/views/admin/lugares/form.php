@@ -14,7 +14,7 @@
           </div>  
           <div class="control-group">  
             <label class="control-label" for="input01">Tipo</label>  
-            <select id="sede" name="item[tipo]">
+            <select id="sede" class="form-control" name="item[tipo]">
 
                     <option value="intradomicilio">Intradomicilio</option>
                     <option value="peridomicilio">Peridomicilio</option>

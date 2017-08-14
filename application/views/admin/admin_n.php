@@ -8,7 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Fundacion Mundo Sano ( chagas )</title>
 <link rel="stylesheet" href="<?php echo $base;?>assets/css/screen.css" type="text/css" media="screen" title="default" />
+<link rel="stylesheet" href="<?php echo $base;?>assets/css/selectize.css" type="text/css" media="screen" title="default" />
+<link rel="stylesheet" href="<?php echo $base;?>assets/css/selectizeb.css" type="text/css" media="screen" title="default" />
 <link rel="stylesheet" href="<?php echo $base;?>assets/bootstrap/css/bootstrap.min.css" type="text/css" media="screen" title="default" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" media="screen" title="default" />
 
 <!--[if IE]>
 <link rel="stylesheet" media="all" type="text/css" href="css/pro_dropline_ie.css" />
@@ -21,11 +24,9 @@
 <script src="<?php echo $js;?>jquery.bind.js" type="text/javascript"></script>
 <![if !IE 7]>
 <!--  styled select box script version 1 -->
-<script src="<?php echo $js;?>jquery.selectbox-0.5.js" type="text/javascript"></script>
-<![endif]>
+ <![endif]>
 <!--  styled select box script version 2 -->
-<script src="<?php echo $js;?>jquery.selectbox-0.5_style_2.js" type="text/javascript"></script>
-<!--  styled file upload script -->
+ <!--  styled file upload script -->
 <script src="<?php echo $js;?>jquery.filestyle.js" type="text/javascript"></script>
 <!-- Custom jquery scripts -->
 <script src="<?php echo $js;?>custom_jquery.js" type="text/javascript"></script>
@@ -45,12 +46,23 @@
 <script src="<?php echo $base; ?>assets/ckeditor/ckeditor.js" type="text/javascript"></script>
 <script src="<?php echo $base; ?>assets/js/jquery-ui-timepicker-addon.js"></script>
 <script src="<?php echo $base; ?>assets/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/js/micro.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/js/selectize.js"></script>
+
+
 <script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/datatables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/js/databootstrap.js"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 
 
 <script>
+                var contador_form_container=0;
 
+            function borrarContainer(id){
+                contador_form_container=contador_form_container-1;
+                 var elem = document.getElementById("container_"+id);
+                elem.parentElement.removeChild(elem);
+            }
             var baseurl = "<?php print base_url(); ?>";
             $(document).ready(function() {
                 $('#calc_id').on('click', function(){
@@ -134,6 +146,11 @@
                 }
             });
 
+String.prototype.replaceAll = function (find, replace) {
+    var str = this;
+    return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace);
+};
+
             $('#vigilancia').on('change', function(){
                 $sel1 = $(this).val();
                 $('#submit_inspeccion').prop('disabled',true);
@@ -149,10 +166,16 @@
                     }
                 }
             });
-
             $('#mas').on('click', function(e){
                 e.preventDefault();
-                var clonedPack =  $('.linea_lugar').filter(':last').clone().appendTo(".positiva");
+                var clonedPack =  $('.linea_lugar').filter(':first').clone()
+               
+                var replaceText="new[0]";
+                 contador_form_container= contador_form_container+1;
+                var replaceTextWith="new["+contador_form_container+"]";
+                
+ 
+                $(".positiva ").append(clonedPack.prop('outerHTML').replaceAll(replaceText,replaceTextWith).replaceAll("hidden","").replaceAll(replaceText,replaceTextWith).replaceAll('class="form-control"','class="form-control" required="required"'))
             });
 
 
@@ -193,7 +216,9 @@
 
                 $( "#fecha_inspeccion" ).datepicker({
                     dateFormat: 'yy-mm-dd',
-                    changeMonth: true
+                    changeMonth: true,
+                                        maxDate:new Date()
+
                 });
                 $( "#fecha_ingreso" ).datepicker({
                     dateFormat: 'yy-mm-dd',
@@ -351,9 +376,11 @@
 
             
             $this->load->view($menu_top); ?>
+                    
         </div>
     <div class="clear"></div>
 </div>
+    </div>
 <div class="clear"></div>
 <div id="content-outer">
 <div id="content">

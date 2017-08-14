@@ -333,6 +333,8 @@
             $this->load->view($menu_top); ?>
         </div>
     <div class="clear"></div>
+    </div>
+        
 </div>
 <div class="clear"></div>
 <div id="content-outer">

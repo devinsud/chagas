@@ -216,7 +216,6 @@
                 <div id="center-column">
                   <div id="errorContainer">
                     <p>Por favor corrija los siguientes errores:</p>
-                    <ul />
                 </div>
                     <?php if (isset($listado)) { ?>
                         <!--listado-->

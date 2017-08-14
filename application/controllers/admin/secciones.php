@@ -4,24 +4,22 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Secciones extends MY_Controller {
-    
+
     public function __construct() {
-        parent::__construct();        
+        parent::__construct();
         $this->config_editor = array();
         //indicamos la ruta para ckFinder
-        $this->config_editor['filebrowserBrowseUrl'] = base_url()."assets/ckeditor/kcfinder/browse.php";
+        $this->config_editor['filebrowserBrowseUrl'] = base_url() . "assets/ckeditor/kcfinder/browse.php";
         // indicamos la ruta para el boton de la toolbar para subir imagenes
-        $this->config_editor['filebrowserImageBrowseUrl'] = base_url()."assets/ckeditor/kcfinder/browse.php?type=images";
+        $this->config_editor['filebrowserImageBrowseUrl'] = base_url() . "assets/ckeditor/kcfinder/browse.php?type=images";
         // indicamos la ruta para subir archivos desde la pestaña de la toolbar (Quick Upload)
-        $this->config_editor['filebrowserUploadUrl'] = base_url()."assets/ckeditor/kcfinder/upload.php?type=files";
+        $this->config_editor['filebrowserUploadUrl'] = base_url() . "assets/ckeditor/kcfinder/upload.php?type=files";
         // indicamos la ruta para subir imagenesdesde la pestaña de la toolbar (Quick Upload)
-        $this->config_editor['filebrowserImageUploadUrl'] = base_url()."assets/ckeditor/kcfinder/upload.php?type=images";
-        /*$this->config_editor['toolbar'] = array(
-            array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
-            array('Image', 'Link', 'Unlink', 'Anchor')
-        );*/
-
-        
+        $this->config_editor['filebrowserImageUploadUrl'] = base_url() . "assets/ckeditor/kcfinder/upload.php?type=images";
+        /* $this->config_editor['toolbar'] = array(
+          array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
+          array('Image', 'Link', 'Unlink', 'Anchor')
+          ); */
     }
 
     public function index() {
@@ -33,7 +31,7 @@ class Secciones extends MY_Controller {
         $data['menu_iz'] = 'admin/menu_iz';
         $data['listado'] = 'admin/secciones/listado';
         $data['col_derecha'] = 'admin/secciones/col_derecha';
-        $args = array('tabla'=>'secciones','campo_orden'=>'orden','dir_orden'=>'asc');
+        $args = array('tabla' => 'secciones', 'campo_orden' => 'orden', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
         $this->load->view('admin/admin', $data);
@@ -47,7 +45,7 @@ class Secciones extends MY_Controller {
             $this->session->set_flashdata('message', 'La seccion se ha creado satisfactoriamente');
             redirect(base_url() . 'admin/secciones/index', 'location');
         } else {
-            
+
             $_SESSION['KCFINDER'] = array();
             $_SESSION['KCFINDER']['disabled'] = false;
             $this->load->library('ckeditor', array('instanceName' => 'CKEDITOR1', 'basePath' => "../../assets/ckeditor/", 'outPut' => true));
@@ -59,26 +57,26 @@ class Secciones extends MY_Controller {
             $data['menu_iz'] = 'admin/menu_iz';
             $data['listado'] = 'admin/secciones/form';
             $data['col_derecha'] = 'admin/secciones/col_derecha';
-            $args = array('tabla'=>'secciones','campo_orden'=>'id','dir_orden'=>'asc','campo_where'=>'id_seccion', 'valor_where'=>'0');
+            $args = array('tabla' => 'secciones', 'campo_orden' => 'id', 'dir_orden' => 'asc', 'campo_where' => 'id_seccion', 'valor_where' => '0');
             $data['secciones'] = $this->varios->getItems($args);
-            $args = array('tabla'=>'galerias','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'galerias', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['galerias'] = $this->varios->getItemsForDropdown($args);
-            
+
             $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
             $this->load->view('admin/admin', $data);
         }
     }
 
-    public function edita($id=0) {
-     $submit = $this->input->post('submit');
+    public function edita($id = 0) {
+        $submit = $this->input->post('submit');
         if ($submit == "Guardar") {
             $u = $this->input->post('item');
-            
+
             $this->seccion->edicion($u);
             $this->session->set_flashdata('message', 'La seccion se ha editado satisfactoriamente');
             redirect(base_url() . 'admin/secciones/index', 'location');
         } else {
-            
+
             $_SESSION['KCFINDER'] = array();
             $_SESSION['KCFINDER']['disabled'] = false;
             $this->load->library('ckeditor', array('instanceName' => 'CKEDITOR1', 'basePath' => "../../assets/ckeditor/", 'outPut' => true));
@@ -90,75 +88,72 @@ class Secciones extends MY_Controller {
             $data['menu_iz'] = 'admin/menu_iz';
             $data['listado'] = 'admin/secciones/form_edit';
             $data['col_derecha'] = 'admin/secciones/col_derecha';
-            $args=array('tabla'=>'secciones','campo'=>'id','valor'=>$id);
+            $args = array('tabla' => 'secciones', 'campo' => 'id', 'valor' => $id);
             $data['item'] = $this->varios->getItem($args);
-            $args = array('tabla'=>'secciones','campo_orden'=>'id','dir_orden'=>'asc','campo_where'=>'id_seccion', 'valor_where'=>'0');
+            $args = array('tabla' => 'secciones', 'campo_orden' => 'id', 'dir_orden' => 'asc', 'campo_where' => 'id_seccion', 'valor_where' => '0');
             $data['secciones'] = $this->varios->getItems($args);
-            $args = array('tabla'=>'galerias','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'galerias', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['galerias'] = $this->varios->getItemsForDropdown($args);
-            
-            $data['gals'] = explode(',',$data['item']->galerias);
-            
-          // var_dump($data['gals']);die;
+
+            $data['gals'] = explode(',', $data['item']->galerias);
+
+            // var_dump($data['gals']);die;
             $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
             $this->load->view('admin/admin', $data);
         }
     }
 
     public function borra($id) {
-        $args=array('tabla'=>'secciones','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'secciones', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'la seccion ha sido eliminada');
         redirect(base_url() . 'admin/secciones/index', 'location');
     }
-    
-    public function sorting(){
-        $submit = $this->input->post('submit');
-         if ($submit != '') {
-          $order=explode(',',$this->input->post('sarasa'));
-          foreach ($order as $key => $value) {
-               $data = array('orden'=>$key);
-               $this->db->where('id',$value);
-               $this->db->update('secciones',$data);
-          }
-           redirect(base_url() . 'admin/secciones/sorting/', 'refresh');
-         }else{
-        $data = array();
-        $args = array(
-            'tabla'=>'secciones', 
-            'campo_orden'=>'orden', 
-            'dir_orden'=>'asc',
-            'campo_where'=>'id_seccion',
-            'valor_where'=>0
-            );
-        $data['items'] = $this->varios->getItems($args);
-       
-        $admin = $this->user->is_admin($this->session->userdata('id'));
-        $data['menusel'] = "secciones";
-        $data['menu_top'] = 'admin/menu_top';
-        $data['menu_iz'] = 'admin/menu_iz';
-        $data['listado'] = 'admin/secciones/sorting';
-        $data['col_derecha'] = 'admin/secciones/col_derecha';
 
-        
-        $this->load->view('admin/admin', $data);
+    public function sorting() {
+        $submit = $this->input->post('submit');
+        if ($submit != '') {
+            $order = explode(',', $this->input->post('sarasa'));
+            foreach ($order as $key => $value) {
+                $data = array('orden' => $key);
+                $this->db->where('id', $value);
+                $this->db->update('secciones', $data);
+            }
+            redirect(base_url() . 'admin/secciones/sorting/', 'refresh');
+        } else {
+            $data = array();
+            $args = array(
+                'tabla' => 'secciones',
+                'campo_orden' => 'orden',
+                'dir_orden' => 'asc',
+                'campo_where' => 'id_seccion',
+                'valor_where' => 0
+            );
+            $data['items'] = $this->varios->getItems($args);
+
+            $admin = $this->user->is_admin($this->session->userdata('id'));
+            $data['menusel'] = "secciones";
+            $data['menu_top'] = 'admin/menu_top';
+            $data['menu_iz'] = 'admin/menu_iz';
+            $data['listado'] = 'admin/secciones/sorting';
+            $data['col_derecha'] = 'admin/secciones/col_derecha';
+
+
+            $this->load->view('admin/admin', $data);
         }
     }
-    
-    
-    
-    
-    public function rotador($id=0){
+
+    public function rotador($id = 0) {
         $data = array();
         $args = array(
-            'tabla'=>'rotador_secciones', 
-            'campo_orden'=>'id', 
-            'dir_orden'=>'asc',
-            'campo_where'=>'id_sec',
-            'valor_where'=>$id
-            );
+            'tabla' => 'rotador_secciones',
+            'campo_orden' => 'id',
+            'dir_orden' => 'asc',
+            'campo_where' => 'id_sec',
+            'valor_where' => $id
+        );
         $data['items'] = $this->varios->getItems($args);
-        $args=array('tabla'=>'secciones','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'secciones', 'campo' => 'id', 'valor' => $id);
         $data['item'] = $this->varios->getItem($args);
         $admin = $this->user->is_admin($this->session->userdata('id'));
         $data['menusel'] = "secciones";
@@ -167,56 +162,52 @@ class Secciones extends MY_Controller {
         $data['listado'] = 'admin/secciones/rotador';
         $data['col_derecha'] = 'admin/secciones/col_derecha';
 
-        
+
         $this->load->view('admin/admin', $data);
     }
 
-    public function add_imagen(){
+    public function add_imagen() {
         $args = array(
-            'path'=>'./assets/imagenes/',
-            'ancho'=>1600,
-            'alto'=>600,
-            'tabla'=>'rotador_secciones',
-            'campo'=>'id',
-            'valor'=>0,
-            'campos'=>array('copete'=>'copete','id_sec'=>'id_sec','tipo'=>'foto'),
-            'tipo'=>'foto'
-
-            
-            
-            
+            'path' => './assets/imagenes/',
+            'ancho' => 1600,
+            'alto' => 600,
+            'tabla' => 'rotador_secciones',
+            'campo' => 'id',
+            'valor' => 0,
+            'campos' => array('copete' => 'copete', 'id_sec' => 'id_sec', 'tipo' => 'foto'),
+            'tipo' => 'foto'
         );
-        
-        
-        
+
+
+
         $this->varios->addImage($args);
-        redirect(base_url() . 'admin/secciones/rotador/'.$this->input->post('id_sec'), 'refresh');
+        redirect(base_url() . 'admin/secciones/rotador/' . $this->input->post('id_sec'), 'refresh');
     }
-    
-    public function borra_imagen_rotador($id=0,$id_sec=0){
-        $args=array('tabla'=>'rotador_secciones','campo'=>'id','valor'=>$id);
+
+    public function borra_imagen_rotador($id = 0, $id_sec = 0) {
+        $args = array('tabla' => 'rotador_secciones', 'campo' => 'id', 'valor' => $id);
         $item = $this->varios->getItem($args);
-        
-        if(is_file('./assets/imagenes/'.$item->path)){
-            unlink('./assets/imagenes/'.$item->path);
+
+        if (is_file('./assets/imagenes/' . $item->path)) {
+            unlink('./assets/imagenes/' . $item->path);
         }
-        $args=array('tabla'=>'rotador_secciones','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'rotador_secciones', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'la imagen ha sido eliminada');
-        redirect(base_url() . 'admin/secciones/rotador/'.$id_sec, 'location');
+        redirect(base_url() . 'admin/secciones/rotador/' . $id_sec, 'location');
     }
-    
-    public function galeria($id=0){
+
+    public function galeria($id = 0) {
         $data = array();
         $args = array(
-            'tabla'=>'galeria_secciones', 
-            'campo_orden'=>'id', 
-            'dir_orden'=>'asc',
-            'campo_where'=>'id_sec',
-            'valor_where'=>$id
-            );
+            'tabla' => 'galeria_secciones',
+            'campo_orden' => 'id',
+            'dir_orden' => 'asc',
+            'campo_where' => 'id_sec',
+            'valor_where' => $id
+        );
         $data['items'] = $this->varios->getItems($args);
-        $args=array('tabla'=>'secciones','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'secciones', 'campo' => 'id', 'valor' => $id);
         $data['item'] = $this->varios->getItem($args);
         $admin = $this->user->is_admin($this->session->userdata('id'));
         $data['menusel'] = "secciones";
@@ -225,10 +216,8 @@ class Secciones extends MY_Controller {
         $data['listado'] = 'admin/secciones/rotador';
         $data['col_derecha'] = 'admin/secciones/col_derecha';
 
-        
+
         $this->load->view('admin/admin', $data);
     }
-    
 
 }
-

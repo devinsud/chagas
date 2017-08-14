@@ -19,7 +19,7 @@ class Sedes extends MY_Controller {
         $data['menu_top'] = $this->menu;
         $data['menusel'] = "sedes";
         $data['listado'] = 'admin/sedes/listado';
-        $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+        $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $this->load->view('admin/admin_n', $data);
     }
@@ -40,9 +40,9 @@ class Sedes extends MY_Controller {
             $data['admin'] = $this->admin;
             $data['menusel'] = "sedes";
             $data['sede'] = 1;
-            $data['menu_top'] =$this->menu;
+            $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/sedes/form';
-            $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['secciones'] = $this->varios->getItems($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -53,8 +53,8 @@ class Sedes extends MY_Controller {
      * @param  integer $id [id de la sede]
      * @return [view]
      */
-    public function edita($id=0) {
-     $submit = $this->input->post('submit');
+    public function edita($id = 0) {
+        $submit = $this->input->post('submit');
         if ($submit == "Guardar") {
             $u = $this->input->post('item');
             $this->sede->edicion($u);
@@ -63,10 +63,10 @@ class Sedes extends MY_Controller {
         } else {
             $data = array();
             $data['admin'] = $this->admin;
-            $data['menu_top'] =$this->menu;
+            $data['menu_top'] = $this->menu;
             $data['menusel'] = "sedes";
             $data['listado'] = 'admin/sedes/form_edit';
-            $args=array('tabla'=>'sedes','campo'=>'id','valor'=>$id);
+            $args = array('tabla' => 'sedes', 'campo' => 'id', 'valor' => $id);
             $data['item'] = $this->varios->getItem($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -78,11 +78,13 @@ class Sedes extends MY_Controller {
      * @return [void]
      */
     public function borra($id) {
-        $args=array('tabla'=>'sedes','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'sedes', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'la sede ha sido eliminado');
         redirect(base_url() . 'admin/sedes/index', 'location');
     }
 
-} //class end bracket
+}
+
+//class end bracket
 

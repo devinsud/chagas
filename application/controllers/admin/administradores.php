@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Administradores extends MY_Controller {
     /* usuarios */
 
-    public function index($indice=0, $criterio= '') {
+    public function index($indice = 0, $criterio = '') {
 
         $admin = $this->user->is_admin($this->session->userdata('id'));
         if (!$admin) {
@@ -18,7 +18,7 @@ class Administradores extends MY_Controller {
         $data['col_derecha'] = 'admin/administradores/col_derecha';
         $data['listado'] = 'admin/administradores/listado';
         $data['menusel'] = "administradores";
-        $args = array('tabla'=>'administradores','campo_orden'=>'id','dir_orden'=>'asc');
+        $args = array('tabla' => 'administradores', 'campo_orden' => 'id', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
 
 
@@ -32,7 +32,7 @@ class Administradores extends MY_Controller {
             $u = $this->input->post('user');
             $this->load->model('user');
 
-            $existe = $this->varios->email_exists('administradores',$u['email']);
+            $existe = $this->varios->email_exists('administradores', $u['email']);
             if (!$existe) {
                 $this->administrador->registro($u);
                 $this->session->set_flashdata('message', 'El administrador ha sido creado');
@@ -54,7 +54,7 @@ class Administradores extends MY_Controller {
         $this->load->view('admin/admin_n', $data);
     }
 
-    public function editar($id=0) {
+    public function editar($id = 0) {
         $submit = $this->input->post('submit');
 
         if ($submit != '') {
@@ -62,8 +62,8 @@ class Administradores extends MY_Controller {
             $this->session->set_flashdata('message', 'El administrador ha sido actualizado');
             redirect(base_url() . 'admin/administradores/index', 'location');
         }
-        $args=array('tabla'=>'administradores','campo'=>'id','valor'=>$id);
-            $data['item'] = $this->varios->getItem($args);
+        $args = array('tabla' => 'administradores', 'campo' => 'id', 'valor' => $id);
+        $data['item'] = $this->varios->getItem($args);
         $data['menu_top'] = 'admin/menu_top';
         $data['menu_iz'] = 'admin/menu_iz';
         $data['col_derecha'] = 'admin/administradores/col_derecha';
@@ -74,7 +74,7 @@ class Administradores extends MY_Controller {
     }
 
     public function borrar($id) {
-        $args=array('tabla'=>'administradores','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'administradores', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
 
         $this->session->set_flashdata('message', 'Administrador eliminado');
@@ -82,6 +82,4 @@ class Administradores extends MY_Controller {
     }
 
     /* Fin usuarios */
-
-
 }

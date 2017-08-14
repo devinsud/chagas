@@ -18,7 +18,7 @@
           <div class="form-actions">  
           <input type="hidden" name="submit" value="Guardar">
             <button type="submit" class="btn btn-primary">Guardar</button>  
-            <button class="btn">Cancelar</button>  
+            <button class="btn" onclick="window.history.back();">Cancelar</button>  
           </div>
     </fieldset>
     <?php echo form_close(); ?>

@@ -1,7 +1,7 @@
 
 <div class="top-bar">
     <?php if($this->session->userdata('type')==1 || $this->session->userdata('type')==10 ){ ?>
-    <a href="<?php echo base_url(); ?>admin/barrios/crea" class="button nuevo">Nuevo Barrio/paraje</a>
+    <a href="<?php echo base_url(); ?>admin/barrios/crea" class="btn btn-success">Nuevo Barrio/paraje</a>
     <?php } ?>
     <h1 class="titulo">Administraci&oacute;n de barrios/parajes</h1>
 </div>
@@ -11,7 +11,7 @@ if ($this->session->flashdata('message')) {
 }
 ?>
 <div class="table1">
-   <table id='example1' class='display datatable' border='0' cellspacing='0' cellpadding='0' >
+   <table id='example1' class="table table-striped table-bordered" border='0' cellspacing='0' cellpadding='0' >
         <thead>
             <tr>
                 <th>Codigo</th>
@@ -44,13 +44,21 @@ if ($this->session->flashdata('message')) {
                                                 $base = base_url();
 
                         ?> </td>
-                        <td><a href="<?php echo base_url();?>admin/barrios/cambiaEstado/<?php echo $u->id;?>"><img src="<?php echo $base; ?>assets/img/swap.png" width="16" height="16" /
-
-                        ><?php echo $u->estado; ?></a></td>
+                        <td>
+                            <?php if($u->estado=="activo"){ ?>
+                            <a class="btn btn-xs btn-success " href="<?php echo base_url();?>admin/barrios/cambiaEstado/<?php echo $u->id;?>">
+                         <?php echo strtoupper($u->estado) ; ?>
+                            </a>
+                <?php }else{?>
+                        <a class="btn btn-xs btn-danger" href="<?php echo base_url();?>admin/barrios/cambiaEstado/<?php echo $u->id;?>">
+                         <?php echo strtoupper($u->estado); ?>
+                            </a>
+                <?php } ?>
+                        </td>
                         <td class="herramientas_fuentes">
-                        <a href="<?php echo base_url(); ?>admin/barrios/edita/<?php echo $u->id; ?>" ><img src="<?php echo base_url(); ?>assets/img/edit-icon.gif" width="16" height="16" alt="" /> Editar
+                            <a class="btn btn-warning btn-sm" href="<?php echo base_url(); ?>admin/barrios/edita/<?php echo $u->id; ?>" > <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
                         <?php if($admin == 1){ ?>
-                        <a href="<?php echo base_url(); ?>admin/barrios/borra/<?php echo $u->id; ?>" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/hr.gif" width="16" height="16" alt="" /> </a> Borrar</td>
+                        <a class="btn btn-danger btn-sm" href="javascript:borrarItem('<?php echo base_url(); ?>admin/barrios/borra/<?php echo $u->id; ?>')" class="borranoticia"  style="cursor:pointer;"><i class="fa fa-minus" aria-hidden="true"></i> Borrar</a> </td>
                         <?php } ?>
                     </tr>
             <?php }

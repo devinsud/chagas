@@ -36,7 +36,7 @@
            <div class="control-group">  
             <label class="control-label" for="input01">Sede</label>  
             <div class="controls">  
-             <select id="sede" name="item[id_sede]" >
+             <select id="sede" class="form-control"  name="item[id_sede]" >
                    
                         <option value=""></option>
                         <?php
@@ -58,7 +58,7 @@
            <div class="control-group">  
             <label class="control-label" for="input01">Tipo de Usuario</label>  
             <div class="controls">  
-             <select name='item[type]'>
+             <select name='item[type]' class="form-control" >
             <?php
 
                     if($item->type == 1){ ?>

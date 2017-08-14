@@ -52,7 +52,7 @@
                 <div class="linea_lugar">
                     <div class="control-group" >
                         <label class="control-label" for="vigilancia">Relaci&oacute;n Familiar </label>
-                            <select name="relac[]" id="lugar">
+                            <select name="relac[]"  class="form-control"  id="lugar">
                                 <option value=""></option>
                                 <?php foreach ($relaciones as $relacion) { ?>
                                     <option value="<?php echo $relacion->id; ?>"><?php echo $relacion->relacion; ?></option>    
@@ -87,3 +87,4 @@
     echo form_close(); ?>
 </div>
 
+</div>

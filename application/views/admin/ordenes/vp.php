@@ -6,7 +6,7 @@
         <h2>Orden de trabajo de <?php echo $tipo; ?></h2>
         
             <h5> Fecha: <?php echo $fecha; ?></h5>
-            <h5> Ciclo: <?php echo $ciclo; ?></h5>
+            <h5> Ciclo: <?phpif(isset($ciclo)) echo $ciclo; ?></h5>
             <h5> <b>Operadores:</b> </h5>
             <ul style="list-style:none;">
             <?php 

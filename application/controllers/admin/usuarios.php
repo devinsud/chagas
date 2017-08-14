@@ -5,6 +5,7 @@ if (!defined('BASEPATH'))
 
 class Usuarios extends MY_Controller {
     /* usuarios */
+
     public function __construct() {
         parent::__construct();
         $this->load->model('sede');
@@ -17,7 +18,7 @@ class Usuarios extends MY_Controller {
      * @param  string  $criterio
      * @return view
      */
-    public function index($indice=0, $criterio= '') {
+    public function index($indice = 0, $criterio = '') {
         $data = array();
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         if (!$data['admin']) {
@@ -27,9 +28,9 @@ class Usuarios extends MY_Controller {
         $data['listado'] = 'admin/usuarios/listado';
         $data['menusel'] = "usuarios";
         $data['items'] = $this->user->get_users($indice, urldecode($criterio));
-        $args_sedes= array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad' );
+        $args_sedes = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args_sedes);
-        $args = array('tabla'=>'barrios','campo_orden'=>'id','dir_orden'=>'asc');
+        $args = array('tabla' => 'barrios', 'campo_orden' => 'id', 'dir_orden' => 'asc');
         $data['barrios'] = $this->varios->getItems($args);
         $all = $this->user->get_all_users(urldecode($criterio));
         $data['cant'] = count($all);
@@ -62,7 +63,7 @@ class Usuarios extends MY_Controller {
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/usuarios/form_usuario';
         $data['usuarios'] = $this->user->get_users();
-        $args = array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad');
+        $args = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args);
         $data['menusel'] = "usuarios";
         $this->load->view('admin/admin_n', $data);
@@ -73,9 +74,9 @@ class Usuarios extends MY_Controller {
      * @param  integer $id
      * @return view
      */
-    public function editar($id=0) {
-        
-        
+    public function editar($id = 0) {
+
+
         $submit = $this->input->post('submit');
         if ($submit != '') {
             $this->user->editar_usuario();
@@ -86,7 +87,7 @@ class Usuarios extends MY_Controller {
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menu_top'] = $this->menu;
         $data['item'] = $this->user->get_user($id);
-        $args = array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad');
+        $args = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args);
         $data['listado'] = 'admin/usuarios/form_usuario_edit';
         $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
@@ -99,8 +100,8 @@ class Usuarios extends MY_Controller {
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public function borrar($id){
-        $id = (int)$id;
+    public function borrar($id) {
+        $id = (int) $id;
         $this->user->borrar_usuario($id);
         $this->session->set_flashdata('message', 'El usuario eliminado');
         redirect(base_url() . 'admin/usuarios', 'location');
@@ -111,12 +112,12 @@ class Usuarios extends MY_Controller {
      * @param  integer $id_user 
      * @return view
      */
-    public function informe($id_user){
+    public function informe($id_user) {
         $data['item'] = $this->user->get_user($id_user);
         $datos = $this->user->get_estadistica_by_User($id_user);
         $data['datos'] = $datos['cargados'];
-        $data['todos'] =  $this->user->get_all_for_period($data['item']->sede);
-        $data['otros_datos']=$datos;
+        $data['todos'] = $this->user->get_all_for_period($data['item']->sede);
+        $data['otros_datos'] = $datos;
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/usuarios/informes';
@@ -128,34 +129,34 @@ class Usuarios extends MY_Controller {
      * [informes procesamiento de informes por usuario]
      * @return view
      */
-    public function informes(){
+    public function informes() {
 
         $u = $this->input->post('item');
         $this->load->model('sede');
 
-        $desde = (isset($u['desde']))?$u['desde']:'';
-        $hasta = (isset($u['hasta']))?$u['hasta']:'';
-        $ciclo = (isset($u['ciclo']))?$u['ciclo']:'';
+        $desde = (isset($u['desde'])) ? $u['desde'] : '';
+        $hasta = (isset($u['hasta'])) ? $u['hasta'] : '';
+        $ciclo = (isset($u['ciclo'])) ? $u['ciclo'] : '';
 
-        $sede = (isset($u['sede']))?$u['sede']:'';
-        if($sede!=''){
+        $sede = (isset($u['sede'])) ? $u['sede'] : '';
+        if ($sede != '') {
             $nombre_sede = $this->sede->getSedeId($sede);
             $data['nombre_sede'] = $nombre_sede[0]->localidad;
         }
         $data['desde'] = $desde;
         $data['hasta'] = $hasta;
 
-        $data['ciclo'] =$ciclo;
-        $data['sede'] =$sede;
+        $data['ciclo'] = $ciclo;
+        $data['sede'] = $sede;
 
         $data['usuarios'] = $this->user->get_all_users_by();
 
         //$data['datos'] = $datos['cargados'];
         //$data['cant'] = count($datos['cargados']);
 
-        $data['todos'] =  $this->user->get_all_for_period($sede);
+        $data['todos'] = $this->user->get_all_for_period($sede);
         //dump($data['todos']);
-        $data['cant_total'] = count( $data['todos']['cargados'] );
+        $data['cant_total'] = count($data['todos']['cargados']);
         //$data['otros_datos']=$datos;
         $data['menu_top'] = 'admin/menu_top_informe_usuarios';
         $data['listado'] = 'admin/usuarios/informes_view';
@@ -163,22 +164,19 @@ class Usuarios extends MY_Controller {
         $this->load->view('admin/admin_informes_usuarios', $data);
     }
 
-
-    public function getDatosCantidad($u=0){
+    public function getDatosCantidad($u = 0) {
 
 
         $usuarios = $this->user->get_all_users_by($u);
 
-        foreach($usuarios as $val1){
-                   $datos1 = $this->user->get_estadistica_by_user($val1->id);
-                   $cant1 = count($datos1['cargados']);
-                   $string[] = array("'".$val1->apellido.', '.$val1->nombre."'",$cant1);
+        foreach ($usuarios as $val1) {
+            $datos1 = $this->user->get_estadistica_by_user($val1->id);
+            $cant1 = count($datos1['cargados']);
+            $string[] = array("'" . $val1->apellido . ', ' . $val1->nombre . "'", $cant1);
         }
 
         echo json_encode($string);
     }
 
     /* Fin usuarios */
-
-
 }

@@ -8,8 +8,6 @@ class Lugares extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('lugar');
-
-
     }
 
     /**
@@ -20,9 +18,10 @@ class Lugares extends MY_Controller {
         $data['admin'] = $this->admin;  //this admin vive en My_Controller
         $data = array();
         $data['menusel'] = "lugares";
+        $data['permiso'] = $this->session->userdata("id");
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/lugares/listado';
-        $args = array('tabla'=>'lugares','campo_orden'=>'tipo','dir_orden'=>'asc');
+        $args = array('tabla' => 'lugares', 'campo_orden' => 'tipo', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
         $this->load->view('admin/admin_n', $data);
@@ -54,8 +53,8 @@ class Lugares extends MY_Controller {
      * @param  integer $id 
      * @return [view]
      */
-    public function edita($id=0) {
-     $submit = $this->input->post('submit');
+    public function edita($id = 0) {
+        $submit = $this->input->post('submit');
         if ($submit == "Guardar") {
             $u = $this->input->post('item');
             $this->lugar->edicion($u);
@@ -67,7 +66,7 @@ class Lugares extends MY_Controller {
             $data['menusel'] = "lugares";
             $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/lugares/form_edit';
-            $args=array('tabla'=>'lugares','campo'=>'id','valor'=>$id);
+            $args = array('tabla' => 'lugares', 'campo' => 'id', 'valor' => $id);
             $data['item'] = $this->varios->getItem($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -79,14 +78,13 @@ class Lugares extends MY_Controller {
      * @return [void]
      */
     public function borra($id) {
-        $args=array('tabla'=>'lugares','campo'=>'id','valor'=>$id);
+        $args = array('tabla' => 'lugares', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'el lugar ha sido eliminado');
         redirect(base_url() . 'admin/lugares/index', 'location');
     }
 
+}
 
-    
-
-} //class end bracket
+//class end bracket
 

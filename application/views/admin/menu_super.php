@@ -20,7 +20,15 @@
         
         <ul class="select"><li><a id="operadores" href="<?php echo $base; ?>admin/operadores/index" ><b>Operadores</b></a></li></ul>
         </li></ul>
-         <ul class="select"><li><a id="backup" href="<?php echo $base; ?>admin/viviendas/backup" ><b>Backup DB</b></a></li></ul>
+         <ul class="select"><li><a id="backup" href="<?php echo $base; ?>admin/viviendas/backup" ><b>Backup 💾</b></a></li></ul>
         </li></ul>
         <div class="clear"></div>
 </div>
+<script>
+function borrarItem(url){
+    var txt;
+    if (confirm("¿Querés borrar este item?") == true) {
+        window.location=url;
+    }  
+}
+</script>

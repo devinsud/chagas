@@ -112,7 +112,7 @@ class Barrio extends CI_Model {
      * @return [obj] 
      */
     public function getBarrios(){
-        $this->db->order_by('nombre','asc');
+        $this->db->order_by('codigo','asc');
         $res = $this->db->get('barrios')->result();
         return $res;
     }

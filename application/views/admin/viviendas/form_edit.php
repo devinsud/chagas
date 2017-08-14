@@ -50,7 +50,7 @@
                      <div class="control-group">  
                         <label class="control-label" for="input01">&nbsp;</label>
                         <div class="controls">  
-                         <button type="button" id="calc_id" >Calcular id de la vivienda</button>
+                            <button type="button" class="btn btn-warning" id="calc_id" >Calcular id de la vivienda</button>
                         </div>  
                       </div> 
                 </div>
@@ -70,7 +70,7 @@
                         <label class="control-label" for="input01">Tipo de vivienda:</label>  
                         <div class="controls">  
                          
-                         <select name="item[tipo]">
+                            <select name="item[tipo]" class="form-control">
                             <?php if($item->tipo=='rural'){ ?>
                             <option value="rural" selected>Rural</option>
                             <option value="urbano">Urbano</option>

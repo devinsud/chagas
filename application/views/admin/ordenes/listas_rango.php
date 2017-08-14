@@ -1,7 +1,7 @@
 
 <div class="top-bar">
     <?php if($this->session->userdata('type')==1 || $this->session->userdata('type')==10 ){ ?>
-    <a href="<?php echo base_url(); ?>admin/viviendas/crea" class="button nuevo">Nueva Vivienda</a> | 
+    <a href="<?php echo base_url(); ?>admin/viviendas/crea" class="button nuevo">Nueva Viviendaaaa</a> | 
     <a href="<?php echo base_url(); ?>admin/viviendas/listas" class="button nuevo">Crear Listas</a>
 
     <?php } ?>

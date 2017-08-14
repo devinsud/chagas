@@ -56,7 +56,7 @@ if ($this->session->flashdata('message')) {
 
 
 <div class="table1">
-   <table id='example1' class='display datatable' border='0' cellspacing='0' cellpadding='0' >
+   <table id='example1' class="table table-striped table-bordered table-hover" border='0' cellspacing='0' cellpadding='0' >
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -83,8 +83,8 @@ if ($this->session->flashdata('message')) {
 
                         <td class="herramientas_fuentes1">
                         <a href="<?php echo base_url(); ?>admin/usuarios/editar/<?php echo $u->id; ?>" ><img src="<?php echo base_url(); ?>assets/img/edit-icon.gif" width="16" height="16" alt="" /> Editar |
-                        <a href="<?php echo base_url(); ?>admin/usuarios/borrar/<?php echo $u->id; ?>" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/hr.gif" width="16" height="16" alt="" /> </a> Borrar |
-                        <a href="<?php echo base_url(); ?>admin/usuarios/informe/<?php echo $u->id; ?>" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/informes.png" width="16" height="16" alt="" /> </a> Informe
+                        <a href="javascript:borrarItem('<?php echo base_url(); ?>admin/usuarios/borrar/<?php echo $u->id; ?>')" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/hr.gif" width="16" height="16" alt="" />  Borrar</a> |
+                        <a href="<?php echo base_url(); ?>admin/usuarios/informe/<?php echo $u->id; ?>" class="borranoticia"  style="cursor:pointer;"><img src="<?php echo base_url(); ?>assets/img/informes.png" width="16" height="16" alt="" />  Informe</a>
                     </td>
                     </tr>
             <?php }

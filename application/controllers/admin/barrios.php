@@ -15,13 +15,13 @@ class Barrios extends MY_Controller {
      * @return [view] 
      */
     public function index() {
-        
+
         $data = array();
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menusel'] = "barrios";
-        $data['menu_top'] =$this->menu;
+        $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/barrios/listado';
-        $args = array('tabla'=>'barrios','campo_orden'=>'id_sede','dir_orden'=>'asc');
+        $args = array('tabla' => 'barrios', 'campo_orden' => 'id_sede', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $this->load->view('admin/admin_n', $data);
     }
@@ -41,9 +41,9 @@ class Barrios extends MY_Controller {
             $data = array();
             $data['admin'] = $this->admin;
             $data['menusel'] = "barrios";
-            $data['menu_top'] =$this->menu;
+            $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/barrios/form';
-            $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['sedes'] = $this->varios->getItems($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -54,7 +54,7 @@ class Barrios extends MY_Controller {
      * @param  integer $id 
      * @return [view]
      */
-    public function edita($id=0) {
+    public function edita($id = 0) {
         $submit = $this->input->post('submit');
         if ($submit == "Guardar") {
             $u = $this->input->post('item');
@@ -68,9 +68,9 @@ class Barrios extends MY_Controller {
             $data['admin'] = $this->admin;
             $data['menu_top'] = $this->menu;
             $data['listado'] = 'admin/barrios/form_edit';
-            $args=array('tabla'=>'barrios','campo'=>'id','valor'=>$id);
+            $args = array('tabla' => 'barrios', 'campo' => 'id', 'valor' => $id);
             $data['item'] = $this->varios->getItem($args);
-            $args = array('tabla'=>'sedes','campo_orden'=>'id','dir_orden'=>'asc');
+            $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['sedes'] = $this->varios->getItems($args);
             $this->load->view('admin/admin_n', $data);
         }
@@ -81,8 +81,8 @@ class Barrios extends MY_Controller {
      * @param  integer $id
      * @return [void]
      */
-    public function cambiaEstado($id){
-        $id = (int)$id;
+    public function cambiaEstado($id) {
+        $id = (int) $id;
         $estado = $this->barrio->estado($id);
         redirect(base_url() . 'admin/barrios/index', 'location');
     }
@@ -93,8 +93,8 @@ class Barrios extends MY_Controller {
      * @return [void]
      */
     public function borra($id) {
-        $id = (int)$id;
-        $args=array('tabla'=>'barrios','campo'=>'id','valor'=>$id);
+        $id = (int) $id;
+        $args = array('tabla' => 'barrios', 'campo' => 'id', 'valor' => $id);
         $this->varios->borraItem($args);
         $this->session->set_flashdata('message', 'el barrio ha sido eliminado');
         redirect(base_url() . 'admin/barrios/index', 'location');
@@ -106,14 +106,16 @@ class Barrios extends MY_Controller {
      * @param  integer $sede
      * @return [json string]
      */
-    public function getBarrioById($id=0,$sede = 0){
-        $barrio = $this->barrio->getBarrioById($id,$sede);
-        if($barrio != 'no existe'){
+    public function getBarrioById($id = 0, $sede = 0) {
+        $barrio = $this->barrio->getBarrioById($id, $sede);
+        if ($barrio != 'no existe') {
             echo json_encode($barrio);
-        }else{
+        } else {
             echo json_encode('no existe');
         }
     }
 
-} //class end bracket
+}
+
+//class end bracket
 

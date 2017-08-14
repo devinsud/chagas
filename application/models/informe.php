@@ -136,6 +136,73 @@ class Informe extends CI_Model {
         $res = $this->db->get('viviendas_inspeccion')->result();
         return $res;
     }
+    
+    /**
+     * [getInformeReceptividad arma el informe de receptividad ]
+     * @param  [type] $filtros [description]
+     * @return [type]          [description]
+     */
+    public function getInformeReceptividadByCaso($filtros,$casos){
+        $data = array();
+
+        //$casos=array('receptiva','cerrada', 'renuente', 'deshabitada', 'desarmada');
+
+        foreach ($casos as $caso) {
+            if($filtros['id_sede'] > 0){
+                $this->db->where('id_sede',(int)$filtros['id_sede']);
+            }
+            if($filtros['barrio'] > 0){
+                    $barrio = (int)$filtros['barrio'];
+                    $this->db->where('id_barrio',$barrio);
+            }
+            if($filtros['manzana'] > 0){
+                    $manzana = (int)$filtros['manzana'];
+                    $this->db->where('id_manzana',$manzana);
+            }
+            if($filtros['desde'] != $filtros['hasta']){
+                if($filtros['desde'] !=''){
+                    $this->db->where('viviendas_inspeccion.fecha_inspeccion >=',$filtros['desde']);
+                }
+                if($filtros['hasta'] !=''){
+                    $this->db->where('viviendas_inspeccion.fecha_inspeccion <=',$filtros['hasta']);
+                }
+            }else if($filtros['desde'] == $filtros['hasta'] && $filtros['desde']!=''){
+                $this->db->where('viviendas_inspeccion.fecha_inspeccion',$filtros['desde']);
+            }
+
+
+           if($filtros['zona'] ==''){
+                if(isset($filtros['filtro_ciclos'])&& is_array($filtros['filtro_ciclos'])){
+                    $this->db->where_in('ciclo',$filtros['filtro_ciclos']);   
+            
+                }
+            }else{
+                $this->db->where('tipo',$filtros['zona']);
+            }
+            
+ 
+            $this->db->select('COUNT(*) as cant');
+
+            $this->db->join('viviendas_inspeccion','viviendas_inspeccion.id_vivienda=viviendas.id_vivienda', 'left outer');
+            $this->db->where('receptividad_vivienda', $caso);
+            $receptiv[$caso] = $this->db->get('viviendas')->result();
+            //$query = $this->db->last_query();
+            //prueba
+            //var_dump($this->db->last_query()); die;
+            //fin prueba
+
+        }/*******/
+
+        
+        $datos['receptiva']=$receptiv['receptiva'][0]->cant;
+        $datos['cerrada']=$receptiv['cerrada'][0]->cant;
+        $datos['renuente']=$receptiv['renuente'][0]->cant;
+        $datos['deshabitada']=$receptiv['deshabitada'][0]->cant;
+	    $datos['desarmada']=$receptiv['desarmada'][0]->cant;
+        $datos['totales']=$receptiv['receptiva'][0]->cant+$receptiv['cerrada'][0]->cant+$receptiv['renuente'][0]->cant+$receptiv['deshabitada'][0]->cant; //+$receptiv['desarmada'][0]->cant;
+        return $datos;
+    }
+
 
     /**
      * [getInformeReceptividad arma el informe de receptividad ]
@@ -180,13 +247,7 @@ class Informe extends CI_Model {
                 $this->db->where('tipo',$filtros['zona']);
             }
             
-
-           // $this->db->select('viviendas_inspeccion.*, viviendas.id_vivienda as idv, viviendas.id_barrio as id_barrio, viviendas.id_sede as id_sede  ');
-            
-          /*  $this->db->from('viviendas');
-            $this->db->join('viviendas_inspeccion','viviendas_inspeccion.id_vivienda=viviendas.id_vivienda', 'left');
-            $res = $this->db->get()->result();*/
-
+ 
             $this->db->select('COUNT(*) as cant');
 
             $this->db->join('viviendas_inspeccion','viviendas_inspeccion.id_vivienda=viviendas.id_vivienda', 'left outer');
@@ -199,13 +260,13 @@ class Informe extends CI_Model {
 
         }/*******/
 
-        
-        $datos['receptiva']=$receptiv['receptiva'][0]->cant;
-        $datos['cerrada']=$receptiv['cerrada'][0]->cant;
-        $datos['renuente']=$receptiv['renuente'][0]->cant;
-        $datos['deshabitada']=$receptiv['deshabitada'][0]->cant;
+        $total=$receptiv['receptiva'][0]->cant+$receptiv['cerrada'][0]->cant+$receptiv['renuente'][0]->cant+$receptiv['deshabitada'][0]->cant;
+        $datos['receptiva']=array("cantidad"=>$receptiv['receptiva'][0]->cant,"porcentaje"=>round(($receptiv['receptiva'][0]->cant*100)/$total,2));
+        $datos['cerrada']=array("cantidad"=>$receptiv['cerrada'][0]->cant,"porcentaje"=>round(($receptiv['cerrada'][0]->cant*100)/$total,2));
+        $datos['renuente']=array("cantidad"=>$receptiv['renuente'][0]->cant,"porcentaje"=>round(($receptiv['renuente'][0]->cant*100)/$total,2));
+        $datos['deshabitada']=array("cantidad"=>$receptiv['deshabitada'][0]->cant,"porcentaje"=>round(($receptiv['deshabitada'][0]->cant*100)/$total,2));
 	    $datos['desarmada']=$receptiv['desarmada'][0]->cant;
-        $datos['totales']=$receptiv['receptiva'][0]->cant+$receptiv['cerrada'][0]->cant+$receptiv['renuente'][0]->cant+$receptiv['deshabitada'][0]->cant; //+$receptiv['desarmada'][0]->cant;
+        $datos['totales']=$total; //+$receptiv['desarmada'][0]->cant;
         return $datos;
     }
 
@@ -218,15 +279,14 @@ class Informe extends CI_Model {
        
               if($filtros['zona'] !=''){
                     $p = 0;
+                    
+                    $ciclosarray=array();
                     foreach ($filtros['ciclos'] as $cic) {
-                         if($p == 0){
-                          $this->db->where('ciclo',$cic->id);
-                        }else{
-                            $this->db->or_where('ciclo',$cic->id);
-                        }
+                        $ciclosarray[]=$cic->id;
                         $p++;
                     }
-                     
+                    $this->db->where_in('ciclo',$ciclosarray);   
+
                 }
         //Pruebas
         //var_dump($filtros['zona']);
@@ -239,6 +299,9 @@ class Informe extends CI_Model {
             $this->db->join('barrios', 'barrios.id = viviendas.id_barrio','left');
             $this->db->group_by('viviendas_positivas.id_vivienda');
             $this->db->group_by('viviendas_positivas.ciclo'); // Agregado por Alejandro - 20161020 - Para contar aquellas viviendas que fueron visitadas en más de un ciclo
+            $this->db->group_by('viviendas_positivas.etapa');
+            $this->db->group_by('viviendas_positivas.cantidad');
+            $this->db->group_by('viviendas_positivas.id');
 
             if($filtros['id_sede'] > 0){
                 $this->db->where('viviendas.id_sede',(int)$filtros['id_sede']);
@@ -261,48 +324,191 @@ class Informe extends CI_Model {
             
 
             if($filtros['zona'] ==''){
+                
+                
                 if(isset($filtros['filtro_ciclos'])&& is_array($filtros['filtro_ciclos'])){
                     $this->db->where_in('ciclo',$filtros['filtro_ciclos']);   
             
                 }
             }
+            
+            
+          
+            
             if(isset($ciclos)){
                 foreach ($ciclos as $cic) {
                       $this->db->like('ciclo',$cic->id);
                 }
             }
+                        $this->db->group_by('viviendas.id_sede');
+
             $res = $this->db->get()->result();
             $lq = $this->db->last_query();
             //Pruebas
-            //dump($this->db->last_query()); die;
+           // dump($this->db->last_query()); die;
             //Fin pruebas
             $peri=0;
             $intra=0;
             $total=0;
-
+            $intraperi=0;
             
+            $totalArray=array();
             foreach ($res as $r) {
                 if($r->tipo=='intradomicilio'){
                     $intra++;
                 }else if($r->tipo=='peridomicilio'){
                     $peri++;
                 }
+                $totalArray[$r->id_vivienda]=$r->id_vivienda;
                 $total++;   
             }
+            
+  
 
-            $datos = array(
-                'totales'=>$total,
+             $datos = array(
+                'totales'=> count($totalArray),
                 'intra'=>$intra,
-                'peri'=>$peri
-
+                'peri'=>$peri,
+                'intra-peri'=>$intraperi
                 );
             //pruebas
-            //var_dump($datos); die;
-            //Fin pruebas
+             //Fin pruebas
             return $datos;
 
 
         
+    }
+    
+    
+    
+      public function getInfestadasRev($filtros){
+       
+              if($filtros['zona'] !=''){
+                    $p = 0;
+                    
+                    $ciclosarray=array();
+                    foreach ($filtros['ciclos'] as $cic) {
+                        $ciclosarray[]=$cic->id;
+                        $p++;
+                    }
+                    $this->db->where_in('ciclo',$ciclosarray);   
+
+                }
+        //Pruebas
+        //var_dump($filtros['zona']);
+        //Fin Pruebas
+
+            $this->db->select('viviendas_positivas.*');
+            $this->db->from('viviendas_positivas');
+            $this->db->group_by('viviendas_positivas.id_vivienda');
+            $this->db->group_by('viviendas_positivas.ciclo'); // Agregado por Alejandro - 20161020 - Para contar aquellas viviendas que fueron visitadas en más de un ciclo
+            $this->db->join('viviendas','viviendas.id_vivienda = viviendas_positivas.id_vivienda','left' );
+
+                $this->db->join('barrios', 'barrios.id = viviendas.id_barrio','left');
+
+            if($filtros['barrio'] > 0){
+                    $this->db->where('barrios.id',$filtros['barrio']);
+                   // $bb = $this->getBarrioId($filtros['barrio']);
+                   // $barri = $bb[0]->codigo;
+            }
+            if($filtros['desde'] != $filtros['hasta']){
+                if($filtros['desde'] !=''){
+                    $this->db->where('viviendas_positivas.fecha_positiva >=',$filtros['desde']);
+                }
+                if($filtros['hasta'] !=''){
+                    $this->db->where('viviendas_positivas.fecha_positiva <=',$filtros['hasta']);
+                }
+            }else if($filtros['desde'] == $filtros['hasta'] && $filtros['desde']!=''){
+                $this->db->where('viviendas_positivas.fecha_positiva',$filtros['desde']);
+            }
+            
+
+            if($filtros['zona'] ==''){
+                
+                
+                if(isset($filtros['filtro_ciclos'])&& is_array($filtros['filtro_ciclos'])){
+                    $this->db->where_in('ciclo',$filtros['filtro_ciclos']);   
+            
+                }
+            }
+            
+            
+          
+            
+            if(isset($ciclos)){
+                foreach ($ciclos as $cic) {
+                      $this->db->like('ciclo',$cic->id);
+                }
+            }
+
+            $res = $this->db->get()->result();
+         
+            
+            $lq = $this->db->last_query();
+            //Pruebas
+           // dump($this->db->last_query()); die;
+            //Fin pruebas
+            $peri=0;
+            $intra=0;
+            $total=0;
+            $intraperi=0;
+            $data=array();
+            $totalArray=array();
+            foreach ($res as $r) {
+                $perisum=$this->viviendaSitio($r->id_vivienda, "peridomicilio");
+                $intrasum=$this->viviendaSitio($r->id_vivienda, "intradomicilio");
+          
+                if(count($perisum)!=0 && count($intrasum) !=0){
+                    $intraperi++;
+                }
+                if(count($perisum)==0){
+                    $intra++;
+                }
+                if(count($intrasum)==0){
+                    $peri++;
+                }
+                $total++;
+                $data[]=$r;
+               // echo "peri".count($peri)." intra".count($intra).$r->id_vivienda."<br>";
+            } 
+            
+
+
+             $datos = array(
+                'totales'=>$total,
+                'intra'=>$intra,
+                'peri'=> $peri,
+                'intra-peri'=>$intraperi,
+                'data'=>$data
+                );
+            
+            return $datos;
+
+
+        
+    }
+    
+    public function viviendaSitio($id,$type){
+            $this->db->select('viviendas_positivas.*');
+            $this->db->from('viviendas_positivas');
+            $this->db->where('viviendas_positivas.id_vivienda',$id);
+            $this->db->where('viviendas_positivas.intraperi',$type);
+
+            
+            $res = $this->db->get()->result();  
+            return $res;
+    }
+    
+    
+    function filtroperi($array,$id){
+        $arrayResult=array();
+ 
+        foreach ($array as $value) {
+            if($id==$value["id_vivienda"]){
+                $arrayResult=$value;
+            }
+        }
+        return $arrayResult;
     }
 
     
@@ -474,6 +680,11 @@ class Informe extends CI_Model {
                 $this->db->where('donde',(int)$l->id);
                 $this->db->group_by('viviendas_positivas.id_vivienda');
                 $this->db->group_by('viviendas_positivas.ciclo'); //Agregado por Alejandro - 20161020 - Para tener en cuenta viviendas que fueron visitadas más de una vez
+                $this->db->group_by('viviendas_positivas.etapa');
+                $this->db->group_by('viviendas_positivas.cantidad');
+                $this->db->group_by('viviendas.id');
+                $this->db->group_by('viviendas_positivas.id');
+                
                 $vdas = $this->db->get('viviendas_positivas')->result();
                 $lq = $this->db->last_query();
                 //prueba
@@ -500,6 +711,67 @@ class Informe extends CI_Model {
         return $rowcount;
     }
 
+    
+    
+    
+    function filtrarPeri($intra,$peri){
+        
+         
+    
+        $intraId=array();
+        $arrayTempoIntra=array();
+        foreach ($intra as $value) {
+                foreach($value as $in){
+                    if(!in_array($in, $arrayTempoIntra)){
+                        $intraId[] =array("tipo"=>"intradomicilio","id_vivienda"=>$in);
+                        $arrayTempoIntra[]=$in;
+                    }
+                }
+        }
+      
+        $periId=array();
+        $arrayTempPeri=array();
+        foreach ($peri as $value) {
+            foreach($value as $pe){
+                if(!in_array($pe, $arrayTempPeri)){
+                    $intraId[] =array("tipo"=>"peridomicilio","id_vivienda"=>$pe);
+                    $arrayTempPeri[]=$pe;
+
+                }
+            }
+        }
+        
+        
+          
+        $totalArray=array();
+        $totalArray["peridomicilio"]=array();
+        $totalArray["intradomicilio"]=array();
+        
+        $pericount=0;
+        $intracount=0;
+        $intraperi=0;
+        
+        foreach ($intraId as $r) {
+            
+            if($r["tipo"]=="peridomicilio" ){
+                   $totalArray["peridomicilio"][$r["id_vivienda"]]=$r["id_vivienda"];
+            }
+            
+            if($r["tipo"]=="intradomicilio" ){
+                   $totalArray["intradomicilio"][$r["id_vivienda"]]=$r["id_vivienda"];
+            }
+          
+        }
+        
+        $result=array_intersect($totalArray["peridomicilio"],$totalArray["intradomicilio"]);
+        $cantidadperi=array_diff($totalArray["peridomicilio"], $result);
+        $cantidadintra=array_diff($totalArray["intradomicilio"], $result);
+           
+               
+      return   $resulta=array("intra"=>count($cantidadintra),"peri"=>count($cantidadperi),"intraperi"=>count($result));
+ 
+    }
+    
     /**
      * [getViviendasBySede devuelve viviendas por sede]
      * @param  [type] $id_sede [description]
@@ -612,6 +884,7 @@ class Informe extends CI_Model {
 
         $this->db->group_by('id_vivienda');
         $this->db->group_by('ciclo'); //Agregado por Alejandro - 20161020 - Para tener en cuenta viviendas que fueron visitadas más de una vez
+        $this->db->group_by('donde');
         $this->db->having('COUNT(distinct intraperi) > 1');
         $ambos = $this->db->get()->result();
         //pruebas
@@ -770,6 +1043,10 @@ class Informe extends CI_Model {
             $this->db->join('viviendas','viviendas.id_vivienda=viviendas_positivas.id_vivienda');
             $this->db->where('id_sede',$id);
             $this->db->group_by('viviendas.id_vivienda');
+            $this->db->group_by('viviendas_positivas.etapa');
+            $this->db->group_by('viviendas_positivas.cantidad');
+            $this->db->group_by('viviendas_positivas.id');
+            $this->db->group_by('viviendas.id');
             $q = $this->db->get('viviendas_positivas')->result();
 
             foreach ($q as $row) {

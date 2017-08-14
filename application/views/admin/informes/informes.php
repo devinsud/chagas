@@ -2,9 +2,8 @@
 
 
 
-<hr>
-
-<h2>Criterios<br></h2>
+ 
+<h2>Criterios</h2>
 <strong>Fecha desde:</strong> <?php echo ($desde != '')?$desde:''; ?> &nbsp;|&nbsp; 
 <strong>Fecha hasta:</strong> <?php echo ($hasta != '')?$hasta:''; ?> &nbsp;|&nbsp; 
 <strong>Barrio:</strong> <?php echo ($barrio != '')?$barrio:''; ?> &nbsp;|&nbsp; 
@@ -30,64 +29,26 @@ if (is_array($filtro_ciclos)) {
 <?php
 
 if (count($viviendas) > 0) {
-	if (1 == 1) {
-		if ($total_viviendas_relevadas != 0) {
-			if ($total_viviendas_relevadas > 0) {
-				$sobre_relevadas_receptivas    = ' ('.round(($receptividad['receptiva']*100)/$receptividad['totales'], 2).'%) ';
-				$sobre_totales_receptivas      = ' ( '.round(($receptividad['receptiva']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_relevadas_cerradas      = ' ('.round(($receptividad['cerrada']*100)/$receptividad['totales'], 2).'%) ';
-				$sobre_totales_cerradas        = ' ('.round(($receptividad['cerrada']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_totales_desarmadas      = ' ('.round(($receptividad['desarmada']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_relevadas_desarmadas    = ' ('.round(($receptividad['desarmada']*100)/$total_viviendas_relevadas, 2).'% sobre relevadas) ';
-				$sobre_relevadas_renuentes     = ' ('.round(($receptividad['renuente']*100)/$receptividad['totales'], 2).'%) ';
-				$sobre_totales_renuentes       = ' ('.round(($receptividad['renuente']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_relevadas_deshabitadas  = ' ('.round(($receptividad['deshabitada']*100)/$receptividad['totales'], 2).'%) ';
-				$sobre_totales_deshabitadas    = ' ('.round(($receptividad['deshabitada']*100)/$receptividad['totales'], 2).'% sobre totales)';
-				$sobre_totales_total_relevadas = ' ('.round(($total_viviendas_relevadas*100)/$receptividad['totales'], 2).'% sobre totales)';
-			} else {
-				$sobre_relevadas_receptivas    = "&nbsp; faltan datos";
-				$sobre_totales_receptivas      = "&nbsp; faltan datos";
-				$sobre_relevadas_cerradas      = "&nbsp; faltan datos";
-				$sobre_relevadas_desarmadas    = "&nbsp; faltan datos";
-				$sobre_totales_cerradas        = "&nbsp; faltan datos";
-				$sobre_relevadas_renuentes     = "&nbsp; faltan datos";
-				$sobre_totales_renuentes       = "&nbsp; faltan datos";
-				$sobre_relevadas_deshabitadas  = "&nbsp; faltan datos";
-				$sobre_totales_deshabitadas    = "&nbsp; faltan datos";
-				$sobre_totales_total_relevadas = "&nbsp; faltan datos";
-			}
-
-		} else {
-			$sobre_relevadas_receptivas    = "";
-			$sobre_totales_receptivas      = "";
-			$sobre_relevadas_cerradas      = "";
-			$sobre_totales_cerradas        = "";
-			$sobre_relevadas_renuentes     = "";
-			$sobre_totales_renuentes       = "";
-			$sobre_relevadas_deshabitadas  = "";
-			$sobre_totales_deshabitadas    = "";
-			$sobre_totales_total_relevadas = "";
-
-		}
+ 		 
 		?>
 		<div class="panel_informes">
 		<h2>Viviendas</h2>
 		<div class="container_indices">
-
+ 
 			<div class="barra_indice" style=" background-color:#f58584; padding:5px;">
-				<strong>Viviendas Inspeccionadas = <span class="ninfo"><?php echo $receptividad['receptiva'].$sobre_relevadas_receptivas;?></span></strong>
+                            <strong>Viviendas Inspeccionadas = <span class="ninfo"><?php echo   $receptividad["receptiva"]["cantidad"]." (".$receptividad["receptiva"]["porcentaje"]."%)";?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#fecd67; padding:5px;">
-				<strong>Viviendas Cerradas =  <span class="ninfo"><?php echo $receptividad['cerrada'].$sobre_relevadas_cerradas;?></span></strong>
+				<strong>Viviendas Cerradas =  <span class="ninfo"><?php echo $receptividad["cerrada"]["cantidad"]." (".$receptividad["cerrada"]["porcentaje"]."%)";?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-				<strong>Viviendas Renuentes =  <span class="ninfo"><?php echo $receptividad['renuente'].$sobre_relevadas_renuentes;?></span></strong>
+				<strong>Viviendas Renuentes =  <span class="ninfo"><?php echo $receptividad["renuente"]["cantidad"]." (".$receptividad["renuente"]["porcentaje"]."%)";?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#3e8ecd; padding:5px;">
-				<strong>Viviendas Deshabitadas =  <span class="ninfo"><?php echo $receptividad['deshabitada'].$sobre_relevadas_deshabitadas;?></span></strong>
+				<strong>Viviendas Deshabitadas =  <span class="ninfo"><?php echo $receptividad["deshabitada"]["cantidad"]." (".$receptividad["deshabitada"]["porcentaje"]."%)";?></span></strong>
 			</div>
 			<div  class="barra_indice" style="background-color:#3e8ecd; padding:5px;">
-				<strong>Viviendas Desarmadas =  <span class="ninfo"><?php echo $receptividad['desarmada']; /*.$sobre_relevadas_desarmadas;*/?></span></strong>
+				<strong>Viviendas Desarmadas =  <span class="ninfo"><?php echo $receptividad["desarmada"]; /*.$sobre_relevadas_desarmadas;*/?></span></strong>
 			</div>
 <!--			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
 				<strong>Viviendas Relevadas=  <span class="ninfo"></span><?php /*echo $receptividad['totales'];*/?></strong>
@@ -95,6 +56,10 @@ if (count($viviendas) > 0) {
 			<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
 				<strong>Viviendas Totales =  <span class="ninfo"><?php echo $receptividad['totales'];?></span></strong>
 			</div>
+
+			<!--<div  class="barra_indice" style="background-color:#F9690E; padding:5px;">
+			</div>-->
+
 
 		</div>
 
@@ -104,152 +69,152 @@ if (count($viviendas) > 0) {
 					<strong>Total de viviendas infestadas =</strong> <span class="ninfo"><?php echo $positivas['totales'];?></span>
 				</div>
 				<div  class="barra_indice" style="background-color:#fecd67; padding:5px;">
-					<strong>Total de viviendas con infestación en peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_peri1;
+					<strong>Total de viviendas con infestación en peridomicilio = </strong> <span class="ninfo"><?php echo $positivas['peri'];
 		?></span><strong>
 
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total de viviendas con infestación en intradomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_intra1;
+					<strong>Total de viviendas con infestación en intradomicilio = </strong> <span class="ninfo"><?php echo $positivas['intra'];
 		?></span>
 				</div>
 
 				<div  class="barra_indice" style="background-color:#6dab6a; padding:5px;">
-					<strong>Total de viviendas con infestación en intra y peridomicilio = </strong> <span class="ninfo"><?php echo $cant_infeccion_ambos;
+					<strong>Total de viviendas con infestación en intra y peridomicilio = </strong> <span class="ninfo"><?php echo $positivas['intra-peri'];
 		?></span>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n =</strong> <span class="ninfo"><?php echo $idi . ' %';
+					<strong>Indice de infestaci&oacute;n =</strong> <span class="ninfo"><?php echo $indice_infestacion . ' %';
 		?></span><strong>
 				</div>
 
 				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intradomiciliar =</strong> <span class="ninfo"><?php echo $idi_intra . ' %';
+					<strong>Indice de infestaci&oacute;n intradomiciliar =</strong> <span class="ninfo"><?php echo $indice_infestacion_intradomiciliar . ' %';
 		?></span><strong>
 				</div>
-
-<!--				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n peridomicilio =</strong> <span class="ninfo"><?php /*echo $idi_peri;
-		*/?></span><strong>
-				</div>
-
-				<div class="barra_indice" style=" background-color:#3e8ecd; padding:5px;">
-					<strong>Indice de infestaci&oacute;n intra y peridomicilio =</strong> <span class="ninfo"><?php /*echo $idi_ambos;
-		*/?></span><strong>
-				</div>-->
-
-				<div  class="barra_indice" style="background-color:#b285bc; padding:5px;">
-					<strong>Cobertura de acciones de campo = </strong> <span class="ninfo"><?php echo $receptividad['totales']<>0 ? round(($receptividad['receptiva'] / $receptividad['totales'])*100, 2):0	 /*$cobertura*/ . ' %';?></span>
-				</div>
+ 
+ 
 
 			</div>
+                <style>
+                    .borderGraficos{
+                        border: 1px solid #d2d2d2;
+                        padding: 10px
+                    }
+                    .graficas-sinculares{
+                            min-height: 560px;
+                    }
+                </style>
 			<h2>Sitios de hallazgo</h2>
-			<div style="width:1250px;height:350px; padding:10px; ">
-				<div id="container3" style="width:1190px; float:left;  padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
-				<br>
-				<div id="container" style="width:/*410px*/610px; float:left;  padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
-				<div id="container1" style="width:/*370px*/580px; float:left; padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>
-				<!--<div id="container2" style="width:410px;  float:left;padding:10px;height: 300px; margin: 0 auto; border: 1px solid #000;"></div>-->
-			</div>
-			<br>
-			<div style="width:1250px; padding:5px;  clear:both;">
-				<div style="width:/*410px*/610px; float:left; border-right:1px solid #000;padding:5px;">
-		<?php foreach ($porLugar_intra as $k => $v) {?>
-					    <span> <b> <?php echo $k;
-			?> :</b></span>  <?php echo $v;
-			?>,
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 borderGraficos">
+                                    <div id="container3"></div>
+                                </div>
+                                <div class="col-md-5 borderGraficos graficas-sinculares">
+                                    <div id="container" ></div>
+                                    <?php foreach ($porLugar_intra as $k => $v) {?>
+                                    <button style="margin-top: 10px" type="button" class="btn btn-primary"><?php echo strtoupper($k); ?> - <?php echo $v; ?></button>
+                                <?php }?>
+                                </div>
+                                <div class="col-md-7 borderGraficos graficas-sinculares">
+                                    <div id="container1" ></div>
+                                    <?php foreach ($porLugar_peri as $k1 => $v1) {?> 
+                                    <button style="margin-top: 10px" type="button" class="btn btn-primary"><?php echo strtoupper($k1); ?> - <?php echo $v1; ?></button>
 			<?php }?>
-		</div>
-				<div style="width:/*410px*/580px; float:left; border-right:1px solid #000;padding:5px;">
-		<?php foreach ($porLugar_peri as $k1 => $v1) {?>
-					    <span> <b> <?php echo $k1;
-			?> :</b></span>  <?php echo $v1;
-			?>,
-			<?php }?>
-		</div>
-<!--				<div style="width:410px; float:left;padding:5px;">
-		<?php /*foreach ($ambos as $k2 => $v2) {*/?>
-					    <span> <b> <?php /*echo $k2;
-			*/?> :</b></span>  <?php /*echo count($v2);
-			*/?>,
-			<?php /*}*/?>
-		</div>-->
-			</div>
-		<?php }?>
-	<br>
-	<br>
-
+                                </div>
+                            </div>
+                            
+  			</div>
+			
+                        
+			 
+ 
 	<hr>
 		<div class="panel_informes">
 		<h2>Tabla de viviendas positivas</h2>
-		<hr>
+		
 	<?php
 	echo form_open_multipart(base_url().'admin/informes/exportar_excel_vivienda/'.$sede[0]->id);
-
+ 
 	?>
+                <div class="container" style="display:none">
+                    <div class="row">
+                        <div class="col-xs-2">
+                             <label for='fecha_desde'>Desde </label>
+                             <input id="desde_v" class="form-control" name="desde_v" size="10" />
+                        </div>
+                        
+                        <div class="col-xs-2">
+                            <label for='fecha_hasta'>Hasta </label>
+                            <input id="hasta_v"  class="form-control"   name="hasta_v" size="10" />
+                        </div>
+                        
+                        <div class="col-xs-2">
+                            <input type='hidden'  class="form-control" name='id_form' value='<?php echo $form;?>'>
+                            <label for='barrios'> Barrios </label>
+                             <select id="barrios"  class="form-control" name="barrios">
+                                  <option value="">Todos</option>
+                                      <?php
+                                      foreach ($barrios as $b) {
+                                              if ($barrio == $b->id) {
+                                                      echo '<option value="'.$b->id.'" selected>'.$b->codigo." - ".$b->nombre.'</option>';
+                                              } else {
+                                                      echo '<option value="'.$b->id.'">'.$b->codigo." - ".$b->nombre.'</option>';
+                                              }
+                                      }
+                                      ?>
 
-	   <label for='fecha_desde'>Desde </label>
+                              </select>
+                            
+                        </div>
+                        <div class="col-xs-2">
+                            <label for='manzana'>Manzana </label>
+                            <input id="manzana" class="form-control" name="manzana" size="5" value="<?php echo (isset($cmanzana))?$manzana:'';?>" />
+                        </div>     
+                        <div class="col-xs-2">
 
-	    <input id="desde_v" name="desde_v" size="10" />
-	    <label for='fecha_hasta'>Hasta </label>
-	    <input id="hasta_v" name="hasta_v" size="10" />
-	    <input type='hidden' name='id_form' value='<?php echo $form;?>'>
-	    <label for='barrios'> Barrios </label>
-	   <select id="barrios" name="barrios">
-	        <option value="">Todos</option>
-	<?php
+                             <label for='ciclo'>Ciclo/Muestreo </label>.
+                             <select  class="form-control" id="ciclos" name="ciclos">
+                                    <option value="">Todos</option>
+                            <?php
 
-	foreach ($barrios as $b) {
-		if ($barrio == $b->id) {
-			echo '<option value="'.$b->id.'" selected>'.$b->nombre.'</option>';
-		} else {
-			echo '<option value="'.$b->id.'">'.$b->nombre.'</option>';
-		}
-	}
-	?>
-
-	    </select>
-	    <label for='manzana'>Manzana </label>
-	    <input id="manzana" name="manzana" size="5" value="<?php echo (isset($cmanzana))?$manzana:'';?>" />
-
-	    <label for='ciclo'>Ciclo/Muestreo </label>.
-
-	    <select id="ciclos" name="ciclos">
-	        <option value="">Todos</option>
-	<?php
-
-	foreach ($ciclos as $ciclo) {
-		if ($ciclo == $ckey) {
-			echo '<option value="'.$ciclo->id.'" selected>'.$ciclo->ciclo.' '.$ciclo->tipo.'</option>';
-		} else {
-			echo '<option value="'.$ciclo->id.'">'.$ciclo->ciclo.' '.$ciclo->tipo.'</option>';
-		}
-	}
-	?>
-	</select>
-	   	<br>
-	    <input type="submit" name="submit" value="Exportar excel"  />
-	    <input type="submit" name="submit" value="Exportar dbf"  />
+                            foreach ($ciclos as $ciclo) {
+                                    if ($ciclo == $ckey) {
+                                            echo '<option value="'.$ciclo->id.'" selected>'.$ciclo->ciclo.' '.$ciclo->tipo.'</option>';
+                                    } else {
+                                            echo '<option value="'.$ciclo->id.'">'.$ciclo->ciclo.' '.$ciclo->tipo.'</option>';
+                                    }
+                            }
+                            ?>
+                            </select>
+                            
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <input type="submit" name="submit" class="btn btn-default" value="Exportar excel"  />
+                        <input type="submit" name="submit" class="btn btn-success" value="Exportar dbf"  />
+                    </div>
+                </div>
+	   
+                
+               
 
 	</form>
 	<hr>
-		<div style="width:550px; height:300px; overflow-y:scroll; border:1px solid #000;">
-			<table>
-				<thead>
-					<th>ID</th>
-
-
-				</thead>
-				<tbody>
-
-	<?php foreach ($viviendas_positivas as $viv_pos) {?>
-								<tr>
-									<td><?php echo $viv_pos->id_vivienda;?></td>
-
-								</tr>
-		<?php }?>
-	</tbody>
+		<div style="width:100%; padding: 10px; height:300px; overflow-y:scroll; border:1px solid #000;">
+                    <table class="table table-bordered  table-hover">
+                            <thead>
+                                    <th>ID</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($positivas["data"] as $viv_pos) {?>
+                                <tr>
+                                    <td><?php echo $viv_pos->id_vivienda;?></td>
+                                </tr>
+                                <?php }?>
+                            </tbody>
 			</table>
 		</div>
 		<br>
@@ -260,3 +225,29 @@ if (count($viviendas) > 0) {
 	<span>No hay datos para generar el informe, al menos debe haber una vivienda inspeccionada</span>
 	<?php }?>
 
+<script>
+
+                $.datepicker.setDefaults({
+                    dateFormat: 'dd/mm/yy'
+                });
+
+                if($( "#desde_v" )){
+                    $( "#desde_v" ).datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        onClose: function( selectedDate ) {
+                            $( "#desde_v" ).datepicker( "option", "minDate", selectedDate );
+                        }
+                    });
+                }
+                if($( "#hasta_v" )){
+                    $( "#hasta_v" ).datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        onClose: function( selectedDate ) {
+                            $( "#hasta_v" ).datepicker( "option", "maxDate", selectedDate );
+                        }
+                    });
+                }
+
+</script>

@@ -84,9 +84,9 @@
                         name: 'Cantidad de viviendas infectadas',
                         data: [
                             
-                                ['Intradomicilio ', <?php echo $cant_infeccion_intra1; ?>],
-                                ['Peridomicilio ', <?php echo $cant_infeccion_peri1; ?>],
-                                ['IntraPeri', <?php echo $cant_infeccion_ambos; ?>]
+                                ['INTRADOMICILIO ', <?php echo $positivas['peri']; ?>],
+                                ['PERIDOMICILIO ', <?php echo $positivas['intra']; ?>],
+                                ['INTRADOMICILIO Y PERIDOMICILIO', <?php echo $positivas['intra-peri']; ?>]
                                 
                             
                             
@@ -96,7 +96,7 @@
                 <?php }else{ ?>
                             $('#container').html('<h6>No Hay infestaciones intradomiciliarias en esta búsqueda</h6>')
                 <?php } ?>
-                <?php if($cant_infeccion_intra>0){ ?>
+                <?php if($positivas['intra']>0){ ?>
                     $('#container').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -128,7 +128,7 @@
                             <?php 
 
                             foreach($porLugar_intra as $k=>$v){?>
-                                ['<?php echo $k; ?>', <?php echo $v; ?>],
+                                ['<?php echo strtoupper($k); ?>', <?php echo $v; ?>],
                             <?php } ?>
                             
                         ]
@@ -137,7 +137,7 @@
                 <?php }else{ ?>
                             $('#container').html('<h6>No Hay infestaciones intradomiciliarias en esta búsqueda</h6>')
                 <?php } ?>
-                <?php if($cant_infeccion_peri>0){ ?>
+                <?php if($positivas['peri']>0){ ?>
                 $('#container1').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -168,7 +168,7 @@
                         data: [
                             <?php
                             foreach($porLugar_peri as $k1=>$v1){?>
-                                ['<?php echo $k1; ?>', <?php echo $v1; ?>],
+                                ['<?php echo strtoupper($k1); ?>', <?php echo $v1; ?>],
                             <?php } ?>
                             
                         ]
@@ -177,7 +177,7 @@
                 <?php }else{ ?>
                             $('#container1').html('<h3>No Hay infestaciones peridomiciliarias en esta búsqueda</h3>')
                 <?php } ?>
-                <?php if($cant_infeccion_ambos>0){ ?>
+                <?php if($positivas['intra-peri']>0){ ?>
                 $('#container2').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -207,7 +207,7 @@
                         name: 'Cantidad de infecciones',
                         data: [
                             <?php foreach($ambos as $k2=>$v2){?>
-                                ['<?php echo $k2; ?>', <?php echo count($v2); ?>],
+                                ['<?php echo strtoupper($k2); ?>', <?php echo count($v2); ?>],
                             <?php } ?>
                             
                         ]
@@ -487,6 +487,25 @@
     </div>
 </div>
 
+<div class="clear">&nbsp;</div>
+<div class="nav-outer-repeat">
+    <div class="nav-outer">
+		<div id="nav-right">
+			<div class="nav-divider">&nbsp;</div>
+    		<a href="<?php echo base_url() ?>sessions/logout" id="logout"><img src="<?php echo $base; ?>assets/images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
+	    	<div class="clear">&nbsp;</div>
+		</div>
+		<div class="nav">
+           
+            
+            <?php 
+
+            
+            $this->load->view($menu_top); ?>
+        </div>
+    <div class="clear"></div>
+</div>
+    </div>
 <div class="clear">&nbsp;</div>
 
 

@@ -28,10 +28,7 @@
             <td width="172"><strong>Password</strong></td>
             <td><input type="password" name="user[password]" class="inp-form" /></td>
         </tr>
-
-
-
-
+ 
         <tr>
             <td>&nbsp;</td>
             <td><?php echo form_submit('submit', 'Guardar'); ?></td>

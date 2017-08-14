@@ -27,7 +27,7 @@ if ($this->session->flashdata('message')) {
 }
 ?>
 <div class="table1">
-   <table id='example1' class='display datatable' border='0' cellspacing='0' cellpadding='0' >
+   <table id='example1'  class="table table-striped table-bordered table-hover" border='0' cellspacing='0' cellpadding='0' >
         <thead>
             <tr>
                 <th>Sede</th>
@@ -74,7 +74,7 @@ if ($this->session->flashdata('message')) {
                            
 
                             
-                            <a href="<?php echo base_url(); ?>admin/ordenes/verDatosTratadas/<?php echo $u->idv; ?>/<?php echo $u->id_orden; ?>" ><img src="<?php echo base_url(); ?>assets/img/ojo.png" width="16" height="16" alt="" /> Ver </a>                           
+                            <a class="btn btn-xs btn-info" href="<?php echo base_url(); ?>admin/ordenes/verDatosTratadas/<?php echo $u->idv; ?>/<?php echo $u->id_orden; ?>" ><i class="fa fa-eye" aria-hidden="true"></i> Ver </a>                           
 
                         </td>
                         <td><?php echo $u->fecha_rociado; ?></td>

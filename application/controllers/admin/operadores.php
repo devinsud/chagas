@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Operadores extends MY_Controller {
-    
+
     public function __construct() {
         parent::__construct();
         $this->load->model('operador');
@@ -17,15 +17,15 @@ class Operadores extends MY_Controller {
      * @param  string  $criterio [description]
      * @return view
      */
-    public function index($indice=0, $criterio= '') {
+    public function index($indice = 0, $criterio = '') {
         $data = array();
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/operadores/listado';
         $data['menusel'] = "operadores";
-        $args_sedes= array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad' );
+        $args_sedes = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args_sedes);
-        $args = array('tabla'=>'operadores','campo_orden'=>'id_sede','dir_orden'=>'asc');
+        $args = array('tabla' => 'operadores', 'campo_orden' => 'id_sede', 'dir_orden' => 'asc');
         $data['items'] = $this->varios->getItems($args);
         $this->load->view('admin/admin_n', $data);
     }
@@ -46,7 +46,7 @@ class Operadores extends MY_Controller {
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menu_top'] = $this->menu;
         $data['listado'] = 'admin/operadores/form';
-        $args = array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad');
+        $args = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args);
         $data['menusel'] = "operadores";
         $this->load->view('admin/admin_n', $data);
@@ -57,7 +57,7 @@ class Operadores extends MY_Controller {
      * @param  integer $id
      * @return view
      */
-    public function editar($id=0) {
+    public function editar($id = 0) {
         $submit = $this->input->post('submit');
         if ($submit != '') {
             $this->operador->editar();
@@ -65,7 +65,7 @@ class Operadores extends MY_Controller {
             redirect(base_url() . 'admin/operadores/index', 'location');
         }
         $data['item'] = $this->operador->getOperador($id);
-        $args = array('tabla'=>'sedes', 'campo_orden'=>'localidad', 'dir_orden'=>'asc', 'campo_titulo'=>'localidad');
+        $args = array('tabla' => 'sedes', 'campo_orden' => 'localidad', 'dir_orden' => 'asc', 'campo_titulo' => 'localidad');
         $data['sedes'] = $this->varios->getItemsForDropdown($args);
         $data['listado'] = 'admin/operadores/form_edit';
         $data['admin'] = $this->admin; //this admin vive en My_Controller
@@ -85,9 +85,5 @@ class Operadores extends MY_Controller {
         redirect(base_url() . 'admin/usuarios', 'location');
     }
 
-    
-
     /* Fin operadores */
-
-
 }

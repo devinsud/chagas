@@ -18,7 +18,15 @@
         <ul class="select"><li><a id="usuarios" href="<?php echo $base; ?>admin/usuarios/index" ><b>Usuarios</b></a></li></ul>
         
         <ul class="select"><li><a id="operadores" href="<?php echo $base; ?>admin/operadores/index" ><b>Operadores</b></a></li></ul>
-        </li></ul>
+         
          
         <div class="clear"></div>
 </div>
+<script>
+function borrarItem(url){
+    var txt;
+    if (confirm("¿Querés borrar este item?") == true) {
+        window.location=url;
+    }  
+}
+</script>

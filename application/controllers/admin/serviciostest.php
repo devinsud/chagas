@@ -4,9 +4,9 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Serviciostest extends MY_Controller {
-    
+
     public function __construct() {
-        parent::__construct();        
+        parent::__construct();
     }
 
     public function index() {
@@ -21,6 +21,4 @@ class Serviciostest extends MY_Controller {
         $this->load->view('admin/adminsintablas', $data);
     }
 
-   
 }
-

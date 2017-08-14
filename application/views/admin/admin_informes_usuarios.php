@@ -109,7 +109,6 @@
                 <div id="center-column-print" style="width:498px;">
                   <div id="errorContainer">
                     <p>Por favor corrija los siguientes errores:</p>
-                    <ul />
                 </div>
                     <?php if (isset($listado)) { ?>
                         <!--listado-->

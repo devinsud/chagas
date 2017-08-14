@@ -13,19 +13,8 @@ class Admin extends MY_Controller {
         $data['col_derecha'] = 'admin/col_derecha';
         $data['admin'] = $this->user->is_admin($this->session->userdata('id'));
         $data['administradores'] = $this->administrador->get_all_admin();
-        $data['menusel']="home";
-       $this->load->view('admin/admin_arranque', $data);
+        $data['menusel'] = "home";
+        $this->load->view('admin/admin_arranque', $data);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 
+}
