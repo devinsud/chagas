@@ -102,8 +102,11 @@ if ($this->session->flashdata('message')) {
                                 <a class="btn btn-sm btn-default" href="<?php echo base_url(); ?>admin/ordenes/ver2/<?php echo $u->id; ?>" ><i class="fa fa-bullseye" aria-hidden="true"></i>  </a> 
                                 <a class="btn btn-sm btn-info" href="<?php echo base_url(); ?>admin/ordenes/ver/<?php echo $u->id; ?>" ><i class="fa fa-eye" aria-hidden="true"></i> </a> 
                                 <?php if ($u->tipo == 'Inspección') { ?>
+                                <?php if($u->aprobada == 1){ ?>
                                 <a class="btn btn-sm btn-success" href="<?php echo base_url(); ?>admin/ordenes/carga_inspeccion/<?php echo $u->id; ?>" ><i class="fa fa-cloud-upload" aria-hidden="true"></i>  </a> 
-                                <?php } else { ?>
+                               <?php }?>
+
+     <?php } else { ?>
                                     |<a class="btn btn-sm btn-success" href="<?php echo base_url(); ?>admin/ordenes/procesar/<?php echo $u->id; ?>" ><i class="fa fa-cog" aria-hidden="true"></i>  </a> 
             <?php } ?>
                                 <a class="btn btn-sm btn-default" href="<?php echo base_url(); ?>admin/ordenes/imprimir/<?php echo $u->id; ?>" target="_blank" ><i class="fa fa-print" aria-hidden="true"></i>  </a>

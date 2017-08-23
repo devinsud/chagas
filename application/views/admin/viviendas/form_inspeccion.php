@@ -8,8 +8,7 @@ echo form_open_multipart(base_url().'admin/viviendas/inspeccion', $attributes);?
 //dump($item);
 $datos = $this->vivienda->explode_id($item->id_vivienda);?>
 
-    <input type="hidden" name="item[ciclo]" value="<?php echo $ciclo_orden?>">
-    <input type="hidden" name="item[orden]" value="<?php echo $orden?>">
+     <input type="hidden" name="item[orden]" value="<?php echo $orden?>">
 
     <div class="panel panel-primary">
 
@@ -50,14 +49,9 @@ $datos = $this->vivienda->explode_id($item->id_vivienda);?>
                     <label class="control-label" for="ciclo">Cantidad de Habitantes </label>
                     <input type="text" name="item[habitantes]" class="form-control" id="jefe">
 
-                    <label class="control-label" for="ciclo">Ciclo </label>
-                    <select name="item[ciclo]" class="form-control"  id="ciclo">
-                    <option value=""></option>
-<?php foreach ($ciclos as $cic) {?>
-									                                <option value="<?php echo $cic->id;?>"><?php echo $cic->ciclo.' ( '.$cic->tipo.' ) ';
-	?></option>
-	<?php }?>
-</select>
+               
+                    
+                    <input type="hidden" name="item[ciclo]" value="<?php echo  $cicloOrden ?>"/>
                     <label class="control-label" for="operador">Operador </label>
                     <select name="item[operador][]" class="form-control" multiple>
 <?php foreach ($operadores as $ope) {

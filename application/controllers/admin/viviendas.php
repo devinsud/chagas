@@ -25,6 +25,7 @@ class Viviendas extends MY_Controller {
         $this->load->model('lugar');
         $this->load->model('relacion');
         $this->load->model('barrio');
+        $this->load->model('orden');
         $this->load->model('ciclo');
         $this->load->model('operador');
     }
@@ -396,7 +397,14 @@ class Viviendas extends MY_Controller {
             $this->session->set_flashdata('message', 'La vivienda se ha editado satisfactoriamente');
             redirect(base_url() . 'admin/ordenes/carga_inspeccion/' . $u['orden'], 'location');
         } else {
-            $data = array();
+            
+                        $ordenModel=$this->orden->getOrdenById($orden);
+ $cicloOrden=null;                        
+                        if(isset($ordenModel[0]->ciclo)){
+                            $cicloOrden=$ordenModel[0]->ciclo;
+                        };
+                        
+             $data = array();
             $data['config'] = $this->config_editor;
             $data['menusel'] = "viviendas";
             $data['admin'] = $this->admin; //this admin vive en My_Controller
@@ -413,6 +421,8 @@ class Viviendas extends MY_Controller {
             $data['operadores'] = $this->operador->getOperadoresBySede($data['item']->id_sede);
             $args = array('tabla' => 'sedes', 'campo_orden' => 'id', 'dir_orden' => 'asc');
             $data['lugares'] = $this->lugar->getLugares();
+            $data['cicloOrden'] = $cicloOrden;
+            
             $data['sedes'] = $this->varios->getItems($args);
             $data['usuario'] = $this->session->userdata('id');
             $this->load->view('admin/admin_n', $data);

@@ -25,7 +25,8 @@ if ($this->session->flashdata('message')) {
         </thead>
         <tbody>
             <?php
-            if (!is_null($items)) {
+            
+             if (!is_null($items)) {
                 if (isset($items) && count($items) > 0) {
 
                     if (isset($items['vivienda'])) {
@@ -36,11 +37,14 @@ if ($this->session->flashdata('message')) {
                             ?>
                         <td class="nombre_fuente"> <?php echo $u[0]->id_vivienda; ?></td>
                         <?php if ($this->vivienda->estaCargada($u[0]->id_vivienda, $id_orden)) { ?>
-
+                        
                             <td class="nombre_fuente"> X </td>
                             <td class="herramientas_fuentes">
+                                  <?php if($admin) {?> 
                                 <a class="btn btn-warning" href="<?php echo base_url(); ?>admin/viviendas/editarInspeccion/<?php echo $u[0]->id_vivienda; ?>/<?php echo $id_orden; ?>/<?php echo $items['orden']; ?>" ><i class="fa fa-edit" aria-hidden="true"></i> Editar Inspección </a>
-                            <?php } else { ?>
+                        <?php } ?>
+                            </td>
+                                    <?php } else { ?>
                             <td>&nbsp;</td>
                             <td class="herramientas_fuentes">
                                 <a class="btn btn-success" href="<?php echo base_url(); ?>admin/viviendas/inspeccion/<?php echo $u[0]->id_vivienda; ?>/<?php echo $id_orden; ?>/<?php echo $items['orden']; ?>" ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Cargar Inspección </a>

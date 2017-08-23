@@ -119,7 +119,7 @@ if ($this->session->flashdata('message')) {
                             </td>
                             <td class="herramientas_fuentes">
                               <?php if ($admin == 1) { ?>
-                                <a class="btn btn-warning btn-xs" href="javascript:borrarItem('<?php echo base_url(); ?>admin/viviendas/edita/<?php echo $u->id; ?>')" ><i class="fa fa-edit" aria-hidden="true"></i> Editar </a>
+                                <a class="btn btn-warning btn-xs" href="<?php echo base_url(); ?>admin/viviendas/edita/<?php echo $u->id; ?>" ><i class="fa fa-edit" aria-hidden="true"></i> Editar </a>
         
                                     <a class="btn btn-xs  btn-danger" href="javascript:borrarItem('<?php echo base_url(); ?>admin/viviendas/borra/<?php echo $u->id; ?>/<?php echo $u->idv; ?>')" class="borranoticia"  style="cursor:pointer;"><i class="fa fa-minus" aria-hidden="true"></i>  Borrar</a></td>
             <?php } ?>
