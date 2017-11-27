@@ -609,8 +609,24 @@ class Viviendas extends MY_Controller {
             $insert_csv['id_vivienda'] = $vv1;
             $insert_csv['latitud'] = substr_replace($csv_array[1], '.', 3, 0);
             $insert_csv['longitud'] = substr_replace($csv_array[2], '.', 3, 0);
-            $insert_csv['id_barrio'] = 59;
-            $insert_csv['id_sede'] = 1;
+            
+            
+            if($csv_array[0][0]=="1"){
+                $insert_csv['id_barrio'] = 104;
+            }
+            
+            if($csv_array[0][0]=="2"){
+                $insert_csv['id_barrio'] = 105;
+            }
+            
+            if($csv_array[0][0]=="3"){
+                $insert_csv['id_barrio'] = 106;
+            }
+            
+            if($csv_array[0][0]=="4"){
+                $insert_csv['id_barrio'] = 107;
+            }
+            $insert_csv['id_sede'] = 3;
             $insert_csv['tipo'] = 'rural';
 
             dump($insert_csv);
