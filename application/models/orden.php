@@ -187,7 +187,7 @@ class Orden extends CI_Model {
         $fecha = date('y-m-d');
         $data = array('aprobada'=>1, 'fecha_aprob'=>$fecha);
         $this->db->update('ordenes',$data);
-        $this->tratadas($id);
+       // $this->tratadas($id);
     }
 
     
