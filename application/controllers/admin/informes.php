@@ -24,9 +24,11 @@ class informes extends MY_Controller {
      */
     public function index($id_sede = 0) {
 
-      
+   
 
         $id_sede = (isset($id_sede) && $id_sede > 0) ? (int) $id_sede : $this->input->post('id_sede');
+        
+        die($id_sede);
         $data['admin'] = $this->admin; //this admin vive en My_Controller
         $data['menu_top'] = $this->menu;
         //$usuario                        = $this->user->getUser($this->session->userdata('id'));
