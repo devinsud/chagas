@@ -59,7 +59,7 @@ if (count($viviendas) > 0) {
 
 			<!--<div  class="barra_indice" style="background-color:#F9690E; padding:5px;">
 			</div>-->
-
+ 
 
 		</div>
 

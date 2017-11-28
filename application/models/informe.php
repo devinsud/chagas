@@ -83,7 +83,7 @@ class Informe extends CI_Model {
     }
 
 
-    /**
+    /** 
      * [getLastCiclo devuelve el ultimo ciclo]
      * @return [type] [description]
      */
@@ -252,6 +252,7 @@ class Informe extends CI_Model {
 
             $this->db->join('viviendas_inspeccion','viviendas_inspeccion.id_vivienda=viviendas.id_vivienda', 'left outer');
             $this->db->where('receptividad_vivienda', $caso);
+            $this->db->where('viviendas.id_sede', $filtros['id_sede']);
             $receptiv[$caso] = $this->db->get('viviendas')->result();
             //$query = $this->db->last_query();
             //prueba
@@ -261,12 +262,23 @@ class Informe extends CI_Model {
         }/*******/
 
         $total=$receptiv['receptiva'][0]->cant+$receptiv['cerrada'][0]->cant+$receptiv['renuente'][0]->cant+$receptiv['deshabitada'][0]->cant;
-        $datos['receptiva']=array("cantidad"=>$receptiv['receptiva'][0]->cant,"porcentaje"=>round(($receptiv['receptiva'][0]->cant*100)/$total,2));
-        $datos['cerrada']=array("cantidad"=>$receptiv['cerrada'][0]->cant,"porcentaje"=>round(($receptiv['cerrada'][0]->cant*100)/$total,2));
-        $datos['renuente']=array("cantidad"=>$receptiv['renuente'][0]->cant,"porcentaje"=>round(($receptiv['renuente'][0]->cant*100)/$total,2));
-        $datos['deshabitada']=array("cantidad"=>$receptiv['deshabitada'][0]->cant,"porcentaje"=>round(($receptiv['deshabitada'][0]->cant*100)/$total,2));
-	    $datos['desarmada']=$receptiv['desarmada'][0]->cant;
-        $datos['totales']=$total; //+$receptiv['desarmada'][0]->cant;
+        
+         if($total!=0){
+             $datos['receptiva']=array("cantidad"=>$receptiv['receptiva'][0]->cant,"porcentaje"=>round(($receptiv['receptiva'][0]->cant*100)/$total,2));
+            $datos['cerrada']=array("cantidad"=>$receptiv['cerrada'][0]->cant,"porcentaje"=>round(($receptiv['cerrada'][0]->cant*100)/$total,2));
+            $datos['renuente']=array("cantidad"=>$receptiv['renuente'][0]->cant,"porcentaje"=>round(($receptiv['renuente'][0]->cant*100)/$total,2));
+            $datos['deshabitada']=array("cantidad"=>$receptiv['deshabitada'][0]->cant,"porcentaje"=>round(($receptiv['deshabitada'][0]->cant*100)/$total,2));
+            $datos['desarmada']=$receptiv['desarmada'][0]->cant;
+            $datos['totales']=$total; //+$receptiv['desarmada'][0]->cant;
+         }else{
+            $datos['receptiva']=0;
+            $datos['cerrada']=0;
+            $datos['renuente']=0;
+            $datos['deshabitada']=0;
+            $datos['desarmada']=0;
+            $datos['totales']=0; //+$receptiv['desarmada'][0]->cant;
+         }
+        
         return $datos;
     }
 
@@ -403,6 +415,7 @@ class Informe extends CI_Model {
             $this->db->group_by('viviendas_positivas.id_vivienda');
             $this->db->group_by('viviendas_positivas.ciclo'); // Agregado por Alejandro - 20161020 - Para contar aquellas viviendas que fueron visitadas en más de un ciclo
             $this->db->join('viviendas','viviendas.id_vivienda = viviendas_positivas.id_vivienda','left' );
+            $this->db->where('viviendas.id_sede >=',$filtros['id_sede']);
 
                 $this->db->join('barrios', 'barrios.id = viviendas.id_barrio','left');
 
@@ -583,7 +596,8 @@ class Informe extends CI_Model {
                 $this->db->join('viviendas','viviendas.id_vivienda=viviendas_positivas.id_vivienda');
                 $this->db->join('lugares','lugares.id=viviendas_positivas.donde');
                 $this->db->join('barrios', 'barrios.id = viviendas.id_barrio');
-                
+                            $this->db->where('viviendas.id_sede', $filtros['id_sede']);
+
                 $intraperi = ($tipo == 'intradomicilio')?'intradomicilio':'peridomicilio';
                 $this->db->where('intraperi',$intraperi);
                 $this->db->where('donde',$l->id);
@@ -881,6 +895,7 @@ class Informe extends CI_Model {
         $this->db->join('viviendas','viviendas.id_vivienda = viviendas_positivas.id_vivienda');
         $this->db->join('barrios','viviendas.id_barrio = barrios.id');
         $this->db->join('lugares','viviendas_positivas.donde = lugares.id');
+            $this->db->where('viviendas.id_sede', $filtros['id_sede']);
 
         $this->db->group_by('id_vivienda');
         $this->db->group_by('ciclo'); //Agregado por Alejandro - 20161020 - Para tener en cuenta viviendas que fueron visitadas más de una vez

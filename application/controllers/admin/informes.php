@@ -76,17 +76,37 @@ class informes extends MY_Controller {
          
           
          $data['receptividad'] = $this->informe->getInformeReceptividad($filtros);
-        
+         if($data['receptividad']["receptiva"]["cantidad"]){
          $data['indice_infestacion'] = round((($data['positivas']["totales"]/$data['receptividad']["receptiva"]["cantidad"])*100),2);
-         $data['indice_infestacion_intradomiciliar'] =  round((($data['positivas']["intra"]+$data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
-         $data['indice_infestacion_peridomiciliar'] =  round((($data['positivas']["peri"]+$data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
-         $data['indice_infestacion_intra_y_peridomiciliar'] =  round((($data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
-         $sumaCobertura=(($data['receptividad']["receptiva"]["cantidad"]+$data['receptividad']["cerrada"]["cantidad"]+$data['receptividad']["renuente"]["cantidad"]+$data['receptividad']["deshabitada"]["cantidad"]));
-         $data['cobertura']=round(($data['receptividad']["receptiva"]["cantidad"]/$sumaCobertura)*100,2);
-
-                 $data['ambos'] = $this->informe->getInfestaAmbos($data['lugares'], $filtros);
- 
+         }else{
+            $data['indice_infestacion']=0; 
+         }
+         if($data['receptividad']["receptiva"]["cantidad"]){
+            $data['indice_infestacion_intradomiciliar'] =  round((($data['positivas']["intra"]+$data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
+         }else{
+            $data['indice_infestacion_intradomiciliar']=0; 
+         }
+         if(isset($data['indice_infestacion_peridomiciliar'])){
+            $data['indice_infestacion_peridomiciliar'] =  round((($data['positivas']["peri"]+$data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
+         }else{
+            $data['indice_infestacion_intra_y_peridomiciliar']=0; 
+         }
          
+         if($data['receptividad']["receptiva"]["cantidad"]){
+            $data['indice_infestacion_intra_y_peridomiciliar'] =  round((($data['positivas']["intra-peri"])/$data['receptividad']["receptiva"]["cantidad"])*100,2);
+         }else{
+             $data['indice_infestacion_intra_y_peridomiciliar']=0;
+         }
+         $sumaCobertura=(($data['receptividad']["receptiva"]["cantidad"]+$data['receptividad']["cerrada"]["cantidad"]+$data['receptividad']["renuente"]["cantidad"]+$data['receptividad']["deshabitada"]["cantidad"]));
+         if($sumaCobertura){
+            $data['cobertura']=round(($data['receptividad']["receptiva"]["cantidad"]/$sumaCobertura)*100,2);
+         }else{
+             $data['cobertura']=0;
+         } 
+
+        $data['ambos'] = $this->informe->getInfestaAmbos($data['lugares'], $filtros);
+ 
+          
          
         $data['porLugar_intra'] = $this->informe->getByLugar('intradomicilio', $data['ambos'], $data['lugares_intra'], $filtros);
         $data['porLugar_peri'] = $this->informe->getByLugar('peridomicilio', $data['ambos'], $data['lugares_peri'], $filtros);

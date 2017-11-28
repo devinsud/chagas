@@ -306,7 +306,7 @@ class Vivienda extends CI_Model {
      */
     public function inspeccion() {
         $u = $this->input->post('item');
-
+      
         $et = $this->input->post('etim');
         $cod = $this->input->post('cod');
         $etapa = $this->input->post('etapa');
@@ -825,7 +825,7 @@ class Vivienda extends CI_Model {
         $this->db->group_by('id');
         $this->db->group_by('viviendas_inspeccion.ciclo');
         $this->db->group_by('tipo');
-        $this->db->group_by('id_sede');
+        $this->db->group_by('id_sede'); 
         $this->db->group_by('latitud');
         $this->db->group_by('longitud');
         $this->db->group_by('id_barrio');
@@ -1386,7 +1386,7 @@ class Vivienda extends CI_Model {
             'observaciones' => $u['observaciones'],
             'orden' => $u['viviendas'],
             'quimico' => $u['quimico'],
-            'aprobada' => 1,
+            'aprobada' => 0,
             'fecha_aprob' => date('Y-m-d'),
         );
         $this->db->insert('ordenes', $data);

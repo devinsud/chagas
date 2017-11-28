@@ -14,7 +14,7 @@ class Lugar extends CI_Model {
             'tipo' => $u['tipo']
         );
         $this->db->insert('lugares', $data);
-    }
+    } 
     
     /**
      * [edicion modificacion]
